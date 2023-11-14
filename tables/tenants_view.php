@@ -600,7 +600,7 @@
 
       <!-- Modal Body -->
       <div class="modal-body">
-        <form class="row g-3 my-1" action="../includes/const.php" method="post">
+        <form class="row g-3 my-1" action="../config/const.php" method="post">
           <div class="col-md-6">
               <label for="firstName" class="form-label">First Name</label>
               <input type="text" class="form-control ps-2" id="firstName" name="first_name">
