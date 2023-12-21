@@ -1,0 +1,44 @@
+
+// SQL TRIGGER FOR UPDATING NUMBER OF UNITS FIELD
+-- Create a trigger to update no_of_units when a new unit is inserted
+DELIMITER //
+CREATE TRIGGER after_unit_insert
+AFTER INSERT ON units
+FOR EACH ROW
+BEGIN
+    UPDATE properties
+    SET no_of_units = no_of_units + 1
+    WHERE id = NEW.property_id;
+END;
+//
+DELIMITER ;
+
+-- Create a trigger to update no_of_units when a unit is deleted
+DELIMITER //
+CREATE TRIGGER after_unit_delete
+AFTER DELETE ON units
+FOR EACH ROW
+BEGIN
+    UPDATE properties
+    SET no_of_units = no_of_units - 1
+    WHERE id = OLD.property_id;
+END;
+//
+DELIMITER ;
+
+
+// use dataTables on any table
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    give the table an id e.g. id="landlordTable" and make sure it has the right format,ie, thead for column headings and tbody for the table data
+
+    then initialize the dataTables like follows 
+    <script>
+        let table = new DataTable('#landlordTable');
+    </script>
+
+    this makes the table sortable when column headers are clicked, also provides a very fast search bar and a dropdown for how many entries should be shown on the table, providing next and previous buttons if records exceed the number of entries selected.
+
+    Use browser dev tools to get the classes of the added elements and style them accordingly

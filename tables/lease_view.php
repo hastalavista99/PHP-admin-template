@@ -59,6 +59,14 @@
           </a>
         </li>
         <li class="nav-item mt-2">
+          <a class="nav-link text-white " href="landlords_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Landlords</span>
+          </a>
+        </li>
+        <li class="nav-item mt-2">
           <a class="nav-link text-white" href="tables/tenants_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">groups</i>
@@ -67,19 +75,20 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-        <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#properties-collapse" aria-expanded="false">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">group</i>
-          </div>
-          <span class="nav-link-text ms-1">Properties</span>
-        </a>
-        <div class="collapse" id="properties-collapse">
-          <ul class="btn-toggle-nav list-unstyled">
-            <li><a href="../tables/property_view.php" class="light-link text-white drop ms-6">View Property</a></li>
-            <li><a href="property_units.php" class="light-link text-white drop ms-6">Add Property Units</a></li>
-
-          </ul>
-        </div>
+          <a class="nav-link text-white " href="property_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">other_houses</i>
+            </div>
+            <span class="nav-link-text ms-1">Properties</span>
+          </a>
+        </li>
+        <li class="nav-item mt-2">
+          <a class="nav-link text-white " href="units_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">home_work</i>
+            </div>
+            <span class="nav-link-text ms-1">Units</span>
+          </a>
         </li>
         <li class="nav-item mt-2">
         <a class="nav-link btn-toggle collapsed active" data-bs-toggle="collapse" data-bs-target="#lease-collapse" aria-expanded="false">
@@ -110,7 +119,7 @@
         </div>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="../pages/notifications.html">
+          <a class="nav-link text-white " href="invoice_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
@@ -131,14 +140,7 @@
           </ul>
         </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">local_activity</i>
-            </div>
-            <span class="nav-link-text ms-1">Support Tickets</span>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link text-white " href="../pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -321,7 +323,7 @@
                 </div>
               </div>
               <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+                <table class="table align-items-center mb-0" id="leaseView">
                   <thead>
                     <tr>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
@@ -619,27 +621,27 @@
             </div>
             <div class="col-md-3">
                 <label for="leaseDuration" class="form-label">Lease Tenure (months)</label>
-                <input type="number" class="form-control ps-2" id="leaseDuration" value="0">
+                <input type="number" class="form-control ps-2" id="leaseDuration" value="0" name="tenure">
             </div>
             <div class="col-md-3">
                 <label for="monthlyRent" class="form-label">Monthly Rent</label>
-                <input type="number" class="form-control ps-2" id="monthlyRent" value="0">
+                <input type="number" class="form-control ps-2" id="monthlyRent" value="0" name="monthly_rent">
             </div>
             <div class="col-md-3">
                 <label for="rentDiscount" class="form-label">Discount in Rent</label>
-                <input type="number" class="form-control ps-2" id="rentDiscount" value="0">
+                <input type="number" class="form-control ps-2" id="rentDiscount" value="0" name="rent_discount">
             </div>
 
             <div class="col-md-4">
                 <label for="leaseStart" class="form-label">Lease Start</label>
-                <input type="date" class="form-control ps-2" id="leaseStart">
+                <input type="date" class="form-control ps-2" id="leaseStart" name="lease_start">
             </div>
             <div class="col-md-4">
                 <label for="leaseEnd" class="form-label">Lease End</label>
-                <input type="date" class="form-control ps-2" id="leaseEnd">
+                <input type="date" class="form-control ps-2" id="leaseEnd" name="lease_end">
             </div>
             <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" name="lease">Submit</button>
             </div>
         </form>
       </div>

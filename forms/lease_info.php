@@ -33,11 +33,19 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
+          <a class="nav-link text-white " href="../index.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item mt-2">
+          <a class="nav-link text-white active" href="../tables/landlords_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Landlords</span>
           </a>
         </li>
         <li class="nav-item mt-2">
@@ -49,22 +57,23 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-        <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#properties-collapse" aria-expanded="false">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">group</i>
-          </div>
-          <span class="nav-link-text ms-1">Properties</span>
-        </a>
-        <div class="collapse" id="properties-collapse">
-          <ul class="btn-toggle-nav list-unstyled">
-            <li><a href="../tables/property_view.php" class="light-link text-white drop ms-6">View Property</a></li>
-            <li><a href="property_units.php" class="light-link text-white drop ms-6">Add Property Units</a></li>
-
-          </ul>
-        </div>
+          <a class="nav-link text-white " href="../tables/property_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">other_houses</i>
+            </div>
+            <span class="nav-link-text ms-1">Properties</span>
+          </a>
         </li>
         <li class="nav-item mt-2">
-        <a class="nav-link btn-toggle collapsed active" data-bs-toggle="collapse" data-bs-target="#lease-collapse" aria-expanded="false">
+          <a class="nav-link text-white " href="../tables/units_view.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">home_work</i>
+            </div>
+            <span class="nav-link-text ms-1">Units</span>
+          </a>
+        </li>
+        <li class="nav-item mt-2">
+        <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lease-collapse" aria-expanded="false">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">apartment</i>
           </div>
@@ -73,7 +82,7 @@
         <div class="collapse" id="lease-collapse">
           <ul class="btn-toggle-nav list-unstyled">
             <li><a href="../tables/lease_view.php" class="drop light-link text-white ms-6 ">Active Leases</a></li>
-            <li><a href="lease_info.php" class="light-link text-white drop ms-6">Edit Leasing Info</a></li>
+            <li><a href="../forms/lease_info.php" class="light-link text-white drop ms-6">Edit Leasing Info</a></li>
           </ul>
         </div>
         </li>
@@ -92,7 +101,7 @@
         </div>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="../pages/notifications.html">
+          <a class="nav-link text-white " href="../tables/invoice_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
@@ -113,14 +122,7 @@
           </ul>
         </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">local_activity</i>
-            </div>
-            <span class="nav-link-text ms-1">Support Tickets</span>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link text-white " href="../pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -137,7 +139,7 @@
         <a class="btn bg-gradient-primary w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Macrologic systems</a>
       </div>
     </div>
-    </aside>
+  </aside>
 
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">

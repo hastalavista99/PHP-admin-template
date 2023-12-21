@@ -1,0 +1,341 @@
+<?php include '../includes/header.php'; ?>
+<?php include '../config/connect.php'; ?>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="d-flex justify-content-between">
+              <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
+                <div class="pt-1 pb-1">
+                  <h4 class="row text-capitalize ps-3">Landlords</h4>
+                </div>
+              </div>
+              <div class="col-md-2 pt-3">
+                <div>
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#landlordModal">
+                    New Landlord
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="row d-flex justify-content-between align-items-center ms-2 me-2">
+                <div class="col-sm-12 col-md-6 mt-1">
+
+                  </div>
+                </div>
+                
+              </div>
+              <div class="table-responsive p-0">
+                <table class="table table-striped table-hover align-items-center mb-0" id="landlordView">
+                  <thead>
+                    <tr>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">landlord id</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone No</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no of properties</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operations</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+
+                    $sql = "select * from landlords";
+                    $result = mysqli_query($con, $sql);
+                    if ($result) {
+                      while ($row = mysqli_fetch_assoc($result)) {
+                        $id = $row['id'];
+                        $name = $row['name'];
+                        $phone_number = $row['phone_number'];
+                        $email = $row['email'];
+                        $no_of_properties = $row['number_of_properties'];
+
+
+                        echo '<tr>
+                                <td scope="row" class="text-center">' . $id . '</td>
+                                <td class="text-center">' . $name . '</td>
+                                <td class="text-center">' . $phone_number . '</td>
+                                <td class="text-center">' . $email . '</td>
+                                <td class="text-center">' . $no_of_properties . '</td>
+                                <td class="text-center"><a style="color: blue;" class="ms-2 update-btn" name="update_landlord" href="../config/update.php?update_landlord_id=' . $row["id"] . '" data-bs-toggle="modal" data-bs-target="#updateLandlordModal"><i class="material-icons opacity-10">edit</i></a>
+                                <a style="color: red;" class="ms-2" name="delete_landlord_id" href="../config/dbcon.php?delete_landlord_id=' . $row["id"] . '"><i class="material-icons opacity-10">delete</i></a></td>
+                                
+                              </tr>';
+                      }
+                    }
+
+                    ?>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <?php include('../includes/footer.php') ?>
+  </main>
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+      <i class="material-icons py-2">settings</i>
+    </a>
+    <div class="card shadow-lg">
+      <div class="card-header pb-0 pt-3">
+        <div class="float-start">
+          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+          <p>See our dashboard options.</p>
+        </div>
+        <div class="float-end mt-4">
+          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0">
+        <!-- Sidebar Backgrounds -->
+        <div>
+          <h6 class="mb-0">Sidebar Colors</h6>
+        </div>
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+          <div class="badge-colors my-2 text-start">
+            <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+          </div>
+        </a>
+        <!-- Sidenav Type -->
+        <div class="mt-3">
+          <h6 class="mb-0">Sidenav Type</h6>
+          <p class="text-sm">Choose between 2 different sidenav types.</p>
+        </div>
+        <div class="d-flex">
+          <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
+          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+        </div>
+        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+        <!-- Navbar Fixed -->
+        <div class="mt-3 d-flex">
+          <h6 class="mb-0">Navbar Fixed</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-3">
+        <div class="mt-2 d-flex">
+          <h6 class="mb-0">Light / Dark</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-sm-4">
+        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free Download</a>
+        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
+        <div class="w-100 text-center">
+          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+          <h6 class="mt-3">Thank you for sharing!</h6>
+          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="landlordModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 150%">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">New Landlord</h5>
+          <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form class="row g-3 my-1" action="../config/dbcon.php" method="post">
+            <div class="col-md-12">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control ps-2" id="name" name="name" autocomplete="off">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputEmail" class="form-label">Email:</label>
+              <input type="email" class="form-control ps-2" id="inputEmail" name="email" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+              <label for="phone" class="form-label">Phone Number:</label>
+              <input type="text" class="form-control ps-2" id="phone" name="phone_number" autocomplete="off">
+            </div>
+
+            <div class="col-12">
+              <button type="submit" name="landlord" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Landlords modal -->
+  <div class="modal" id="updateLandlordModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 150%">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Update Landlord</h5>
+          <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form class="row g-3 my-1" action="../config/update.php" method="post">
+            <div class="col-md-12">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control ps-2" id="name" name="name" autocomplete="off">
+            </div>
+
+            <div class="col-md-6">
+              <label for="inputEmail" class="form-label">Email:</label>
+              <input type="email" class="form-control ps-2" id="inputEmail" name="email" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+              <label for="phone" class="form-label">Phone Number:</label>
+              <input type="text" class="form-control ps-2" id="phone" name="phone_number" autocomplete="off">
+            </div>
+
+            <div class="col-12">
+              <button type="submit" name="update_landlord" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORTING TO EXCEL -->
+  <script>
+    function exportToExcel() {
+      // Prevent the default behavior of the link
+      event.preventDefault();
+
+      // Send an AJAX request to the server
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '../config/excel.php', true);
+      xhr.responseType = 'blob'; // Set the response type to blob
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // Create a blob from the response
+          var blob = new Blob([xhr.response], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          });
+
+          // Create a link element and trigger the download
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'landlord_data.xlsx';
+
+          // Append the link to the document and click it
+          document.body.appendChild(link);
+          link.click();
+
+          // Remove the link from the document
+          document.body.removeChild(link);
+        }
+      };
+      xhr.send();
+    }
+
+    // Attach the function to the click event of the link
+    document.getElementById('exportExcel').addEventListener('click', exportToExcel);
+  </script>
+  <!-- EXPORT TO PDF -->
+  <script>
+    function exportToPdf() {
+        // Prevent the default behavior of the link
+        event.preventDefault();
+
+        // Send an AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'pdf.php', true);
+        xhr.responseType = 'blob'; // Set the response type to blob
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Create a blob from the response
+                var blob = new Blob([xhr.response], { type: 'application/pdf' });
+
+                // Create a link element and trigger the download
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'landlord_data.pdf';
+
+                // Append the link to the document and click it
+                document.body.appendChild(link);
+                link.click();
+
+                // Remove the link from the document
+                document.body.removeChild(link);
+            }
+        };
+        xhr.send();
+    }
+
+    // Attach the function to the click event of the link
+    document.getElementById('exportPDF').addEventListener('click', exportToPdf);
+</script>
+
+
+
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+  <!--   Core JS Files   -->
+
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+</body>
+
+</html>

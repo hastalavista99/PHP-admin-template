@@ -51,7 +51,7 @@
         <li class="nav-item mt-2">
         <a class="nav-link btn-toggle collapsed active" data-bs-toggle="collapse" data-bs-target="#properties-collapse" aria-expanded="true">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">group</i>
+              <i class="material-icons opacity-10">other_houses</i>
           </div>
           <span class="nav-link-text ms-1">Properties</span>
         </a>
@@ -92,7 +92,7 @@
         </div>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="../pages/notifications.html">
+          <a class="nav-link text-white " href="../tables/invoice_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
@@ -113,14 +113,7 @@
           </ul>
         </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">local_activity</i>
-            </div>
-            <span class="nav-link-text ms-1">Support Tickets</span>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link text-white " href="../pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
