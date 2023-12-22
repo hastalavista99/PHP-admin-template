@@ -22,6 +22,10 @@ $invalid = 0;
 if (isset($_POST['sign_in'])) {
     $name = $_POST['name'];
     $password = $_POST['password'];
+    if (isset($_POST['remember'])) { // check if checkbox is checked
+      $remember = $_POST['remember'];
+    }
+    
 
     $sql = "SELECT * FROM users WHERE user_name = '$name' AND user_password = '$password'";
 
@@ -32,6 +36,15 @@ if (isset($_POST['sign_in'])) {
             $login = 1;
             session_start();
             $_SESSION['username'] = $name;
+            if (isset($_POST['remember'])) {
+              $remember = $_POST['remember'];
+              setcookie("remember_name", $name, time() + 3600*24*365); //cookie for the name
+              setcookie("remember", $remember, time() + 3600*24*365); //cookie for the remember me switch
+            } else {
+              setcookie("remember_name", "", time() - 36000);
+              setcookie("remember", "", time() - 36000);
+            }
+            
             header('location: index.php');
              
         } else {
@@ -49,7 +62,7 @@ if (isset($_POST['sign_in'])) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">
   <title>
     Sign In
   </title>
@@ -97,14 +110,14 @@ if (isset($_POST['sign_in'])) {
                 <form role="form" id="signupForm" class="text-start" method="post">
                   <div class="my-3">
                     <!-- <label class="form-label">Email</label> -->
-                    <input type="text" name="name" class="form-control ps-2" placeholder="Username" required>
+                    <input type="text" name="name" class="form-control ps-2" value="<?php if(!empty($name)) { echo $name; } elseif (isset($_COOKIE["remember_name"])) { echo $_COOKIE["remember_name"]; } ?>" placeholder="Username" required>
                   </div>
                   <div class="mb-3">
                     <!-- <label class="form-label">Password</label> -->
                     <input type="password" name="password" class="form-control ps-2" placeholder="Password" required>
                   </div>
                   <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember"<?php if(!empty($remember)){ ?>checked <?php } elseif(isset($_COOKIE["remember"])) { ?> checked <?php } ?>>
                     <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
                   </div>
                   <div class="text-center">
