@@ -17,6 +17,7 @@ if (!isset($_SESSION['username'])) {
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <link rel="icon" type="image/png" href="./assets/img/icons/logo.png">
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
@@ -27,10 +28,6 @@ if (!isset($_SESSION['username'])) {
 
   <link rel="stylesheet" type="text/css" href="assets/css/material-dashboard.css"/>
   <link rel="stylesheet" type="text/css" href="assets/css/styles.css"/>
-  <!-- <style>
-    <?php include('../assets/css/material-dashboard.css'); ?>
-    <?php include('../assets/css/styles.css'); ?>
-  </style> -->
   
 </head>
 
