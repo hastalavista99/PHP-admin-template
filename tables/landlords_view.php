@@ -180,7 +180,7 @@
         </div>
 
         <div class="col-12 my-3">
-          <button type="submit" name="update_landlord" class="btn btn-primary" onclick="updateDetails()">Update</button>
+          <button type="button" name="update_landlord" class="btn btn-primary" onclick="updateDetails()">Update</button>
           <input type="hidden" id="hiddenLandlordData">
         </div>
 
@@ -269,13 +269,14 @@
 updateModal.show();
 
 
+
   }
   // update 
   function updateDetails() {
     var updatename = $('#updateLandlordName').val();
     var updateemail = $('#updateLandlordEmail').val();
     var updatemobile = $('#updateLandlordPhone').val();
-    var hiddendata = $('#hiddenData').val();
+    var hiddendata = $('#hiddenLandlordData').val();
 
     $.post("update.php", {
       updatename: updatename,
@@ -284,7 +285,7 @@ updateModal.show();
       hiddendata: hiddendata
     }, function(data, status) {
       updateModal.hide();
-      // displayData();
+      displayData();
     });
   }
 </script>

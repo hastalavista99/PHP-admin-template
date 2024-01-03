@@ -27,7 +27,7 @@ if (isset($_POST['hiddendata'])) {
 
 
 
-    $sql = "UPDATE landlords SET name='$name', email='$email', mobile='$mobile' WHERE id=$userid";
+    $sql = "UPDATE landlords SET name='$name', phone_number='$mobile', email='$email' WHERE id=$userid";
 
     $result = mysqli_query($con, $sql);
     if (!$result) {
