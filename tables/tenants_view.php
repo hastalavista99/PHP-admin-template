@@ -13,7 +13,7 @@
           </div>
           <div class="col-md-2 pt-3">
             <div>
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
                 New Tenant
               </button>
             </div>
@@ -21,119 +21,16 @@
         </div>
         <div class="card-body px-0 pb-2">
           <div class="row d-flex justify-content-between align-items-center ms-2 me-2">
-            
-            </div>
+
           </div>
-          <div class="table-responsive p-0">
-            <table class="table table-striped table-hover align-items-center mb-0" id="tenantsView">
-              <thead>
-                <tr>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tenant id</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone No</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id number</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status </th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">property name</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit number</th>
+        </div>
+        <div id="tenantViewTable" class="table-responsive p-0">
 
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operations</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-
-                $sql = "SELECT
-                        tenants_two.id AS id,
-                        tenants_two.name AS name,
-                        tenants_two.email AS email,
-                        tenants_two.phone_number AS phone_number,
-                        tenants_two.id_number AS id_number,
-                        tenants_two.tenant_status AS tenant_status,
-                        tenants_two.unit_id AS unit_id,
-                        properties.name AS property_name,
-                        units_two.unit_number AS unit_number
-                      FROM 
-                        tenants_two 
-                      LEFT JOIN
-                        properties ON tenants_two.property_id = properties.id 
-                      LEFT JOIN 
-                        units_two ON tenants_two.unit_id = units_two.id";
-
-                $result = $con->query($sql);
-
-
-
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-
-
-                    echo '<tr>';
-                    echo '<td scope="row" class="text-center">' . $row["id"] . '</td>';
-                    echo ' <td class="text-center">' . $row["name"] . '</td>';
-                    echo '<td class="text-center">' . $row["email"] . '</td>';
-                    echo ' <td class="text-center">' . $row["phone_number"] . '</td>';
-                    echo ' <td class="text-center">' . $row["id_number"] . '</td>';
-                    echo '<td class="text-center">' . $row["tenant_status"] . '</td>';
-
-                    echo '<td class="text-center">' . $row["property_name"] . '</td>';
-                    echo '<td class="text-center">' . $row["unit_number"] . '</td>';
-
-
-
-                    if ($row["tenant_status"] == 'unassigned') {
-                      echo '<td class="text-center">
-                                  <button type="button" class="btn btn-info btn-sm my-1 assign_btn"  ><a href="../forms/assign_tenant.php?assign_id=' . $row["id"] . '" class="text-white">Assign</a></button>';
-                    } else {
-                      echo '<td class="text-center">
-                          <button type="button" class="btn btn-warning btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal'.$row["id"].'">
-                          VACATE
-                        </button>';
-                    }
-                    
-
-                    echo '<div class="modal fade" id="exampleModal'.$row["id"].'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Vacate Tenant</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <form action="../config/dbcon.php" method="get" autocomplete="off">
-                                <div class="mb-3">
-                                  <lable class="form-label" for="vacate_comment">Reason for Vacating Tenant:</lable>
-                                  <textarea class="form-control px-2" name="comment" id="vacate_comment" rows="3" required></textarea>
-                                </div>
-                                <input type="hidden" name="vacateid" value="'.$row["id"].'">
-                                <button type="button" class="btn btn-info btn-sm mx-2" data-bs-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-warning vacate_btn btn-sm" name="vacate_tenant_id">Vacate</button>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>';
-
-
-
-                    // echo '<a style="color: red;" class="ms-2" name="delete_property_id" href="../config/dbcon.php?delete_tenant_id=' . $row["id"] . '"><i class="material-icons opacity-10">delete</i></a></td>';
-                    echo '</tr>';
-                  }
-                } else {
-                  echo "<tr><td colspan='6'>No units found</td></tr>";
-                }
-
-                ?>
-
-
-
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
 
@@ -218,7 +115,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="tenantModal">
   <div class="modal-dialog">
     <div class="modal-content" style="width: 150%">
 
@@ -230,89 +127,75 @@
 
       <!-- Modal Body -->
       <div class="modal-body">
-        <form class="row g-3 my-1" action="../config/dbcon.php" method="post">
+        <div class="row g-3 my-1">
           <div class="col-md-12">
-            <label for="name" class="form-label">Name:</label>
-            <input type="text" class="form-control ps-2" id="name" name="name" autocomplete="off">
+            <label for="tenantName" class="form-label">Name:</label>
+            <input type="text" class="form-control ps-2" id="tenantName" name="name" autocomplete="off">
           </div>
 
           <div class="col-md-6">
-            <label for="inputEmail" class="form-label">Email:</label>
-            <input type="email" class="form-control ps-2" id="inputEmail" name="email" autocomplete="off">
+            <label for="tenantEmail" class="form-label">Email:</label>
+            <input type="email" class="form-control ps-2" id="tenantEmail" name="email" autocomplete="off">
           </div>
           <div class="col-md-6">
-            <label for="inputAddress" class="form-label">Phone Number:</label>
-            <input type="text" class="form-control ps-2" id="inputAddress" name="phone_number" autocomplete="off">
+            <label for="tenantPhone" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control ps-2" id="tenantPhone" name="phone_number" autocomplete="off">
           </div>
 
           <div class="col-md-3">
-            <label for="inputId" class="form-label">Identity No / Passport:</label>
-            <input type="text" class="form-control ps-2" id="inputId" name="id_number" autocomplete="off">
+            <label for="tenantId" class="form-label">Identity No / Passport:</label>
+            <input type="text" class="form-control ps-2" id="tenantId" name="id_number" autocomplete="off">
           </div>
-          <!-- <div class="col-md-4">
-              <label for="type" class="form-label">Property Name</label>
-              <select id="type" name="property_Select" class="form-select ps-2">
-              <option value="" selected>-- Select Property --</option>
-                <?php
-                // Fetch property types from the database and populate the dropdown
-
-
-                $conn = new mysqli('localhost', 'jack', '.kJgIRNMbIEKKi](', 'property');
-
-                if ($conn->connect_error) {
-                  die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT id, name FROM properties";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                  }
-                } else {
-                  echo "<option value='' disabled>No types found</option>";
-                }
-
-                $conn->close();
-                ?>
-              </select>
-          </div>
-          <div class="col-md-4">
-              <label for="type" class="form-label">Unit Name</label>
-              <select id="type" name="unitSelect" class="form-select ps-2">
-              <option value="" selected>-- Select Unit --</option>
-                <?php
-                // Fetch property types from the database and populate the dropdown
-
-
-                $conn = new mysqli('localhost', 'jack', '.kJgIRNMbIEKKi](', 'property');
-
-                if ($conn->connect_error) {
-                  die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT id, unit_number FROM units";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row["id"] . "'>" . $row["unit_number"] . "</option>";
-                  }
-                } else {
-                  echo "<option value='' disabled>No types found</option>";
-                }
-
-                $conn->close();
-                ?>
-              </select>
-          </div> -->
 
 
           <div class="col-12">
-            <button type="submit" name="tenant" class="btn btn-primary">Create</button>
+            <button type="button" name="tenant" class="btn btn-primary" onclick="addTenant()">Create</button>
           </div>
-        </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- update modal -->
+<div class="modal" id="updateTenantModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 150%">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Tenant</h5>
+        <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row g-3 my-1">
+          <div class="col-md-12">
+            <label for="updateTenantName" class="form-label">Name:</label>
+            <input type="text" class="form-control ps-2" id="updateTenantName" name="name" autocomplete="off">
+          </div>
+
+          <div class="col-md-6">
+            <label for="updateTenantEmail" class="form-label">Email:</label>
+            <input type="email" class="form-control ps-2" id="updateTenantEmail" name="email" autocomplete="off">
+          </div>
+          <div class="col-md-6">
+            <label for="updateTenantPhone" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control ps-2" id="updateTenantPhone" name="phone_number" autocomplete="off">
+          </div>
+
+          <div class="col-md-3">
+            <label for="updateTenantId" class="form-label">Identity No / Passport:</label>
+            <input type="text" class="form-control ps-2" id="updateTenantId" name="id_number" autocomplete="off">
+          </div>
+          <div class="col-12">
+            <button type="button" name="tenant" class="btn btn-primary" onclick="updateTenantDetails()">Update</button>
+            <input type="hidden" id="hiddenTenantData">
+          </div>
+        </div>
       </div>
 
       <!-- Modal Footer -->
@@ -419,82 +302,104 @@
 <?php include '../includes/js_links.php' ?>
 
 <script>
+  const updateTenantModal = new bootstrap.Modal('#updateTenantModal');
+  const tenantModal = new bootstrap.Modal('#tenantModal');
   $(document).ready(function() {
-    let tenantId;
-
-    // Assign button click event
-    $('.assign-btn').click(function() {
-      tenantId = $(this).data('tenant-id');
-    });
-
-    // Vacate button click event
-    $('.vacate-btn').click(function() {
-      tenantId = $(this).data('tenant-id');
-      vacateTenant(tenantId);
-    });
-
-    // Assign button in modal click event
-    $('#submitAssign').click(function() {
-      assignTenant(tenantId);
-    });
-
-    // Additional JavaScript logic for dynamically updating unit options based on property selection
-    // ...
-
-    function assignTenant(id) {
-      // Perform AJAX request to update status in the database
-      $.ajax({
-        type: 'POST',
-        url: 'test.php', // PHP script to handle assignment
-        data: {
-          id: id,
-          property: $('#property').val(),
-          unit: $('#unit').val(),
-          type: $('#type_of').val()
-        },
-        success: function(response) {
-          alert(response); // Display success or error message
-          $('#assignModal').modal('hide');
-        },
-        error: function(error) {
-          console.error(error);
-        }
-      });
-    }
-
-    function vacateTenant(id) {
-      // Perform AJAX request to update status in the database
-      $.ajax({
-        type: 'POST',
-        url: 'vacate_tenant.php', // PHP script to handle vacation
-        data: {
-          id: id
-        },
-        success: function(response) {
-          alert(response); // Display success or error message
-        },
-        error: function(error) {
-          console.error(error);
-        }
-      });
-    }
+    displayTenantData();
   });
-</script>
-<script>
-  function getTenantDetails(tenantid){
-    $('#hiddenTenantData').val(vacateid);
 
+  // display function
+  function displayTenantData() {
+    var displayData = "true";
     $.ajax({
-      url: "../config/dbcon.php",
+      url: "display.php",
       type: 'post',
       data: {
-        vacateTenantid: vacateid
+        displayTenant: displayData
       },
-      success: function(data,status) {
-        console.log(vacateid);
+      success: function(data, status) {
+        $('#tenantViewTable').html(data);
       }
+    })
+  }
+
+  function addTenant() {
+    var name = $('#tenantName').val();
+    var email = $('#tenantEmail').val();
+    var mobile = $('#tenantPhone').val();
+    var id_number = $('#tenantId').val();
+
+
+    $.ajax({
+      url: "insert.php",
+      type: 'post',
+      data: {
+        tenantName: name,
+        tenantEmail: email,
+        tenantPhone: mobile,
+        tenantId: id_number
+      },
+      success: function(data, status) {
+        // function to display data
+        // console.log(status);
+        tenantModal.hide();
+        displayTenantData();
+      }
+    })
+  }
+
+  // delete record
+  // function deleteLandlord(deleteid) {
+  //   $.ajax({
+  //     url: "delete.php",
+  //     type: 'post',
+  //     data: {
+  //       deleteLandlord: deleteid
+  //     },
+  //     success: function(data, status) {
+  //       displayTenantData();
+  //     }
+  //   });
+  // }
+  // update function to get details from the database
+  function getTenantDetails(updateid) {
+    $('#hiddenTenantData').val(updateid);
+
+
+    $.post("update.php", {
+      updateTenantid: updateid
+    }, function(data, status) {
+      var userid = JSON.parse(data);
+      $('#updateTenantName').val(userid.name);
+      $('#updateTenantEmail').val(userid.email);
+      $('#updateTenantPhone').val(userid.phone_number);
+      $('#updateTenantId').val(userid.id_number);
+    });
+    updateTenantModal.show();
+
+
+
+  }
+  // update 
+  function updateTenantDetails() {
+    var updatename = $('#updateTenantName').val();
+    var updateemail = $('#updateTenantEmail').val();
+    var updatemobile = $('#updateTenantPhone').val();
+    var updateId = $('#updateTenantId').val();
+    var hiddentenantdata = $('#hiddenTenantData').val();
+
+    $.post("update.php", {
+      updatetenantname: updatename,
+      updatetenantemail: updateemail,
+      updatetenantmobile: updatemobile,
+      updateId: updateId,
+      hiddentenantdata: hiddentenantdata
+    }, function(data, status) {
+      updateTenantModal.hide();
+      displayTenantData();
     });
   }
 </script>
+
 
 <?php include '../includes/footer.php'; ?>

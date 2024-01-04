@@ -1,12 +1,5 @@
 $(document).ready(function () {
-    var table = $('#tenantsView').DataTable({
-        lengthChange: true,
-        "pageLength": 100,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
-    });
-
-    table.buttons().container()
-        .appendTo('#tenantsView_wrapper .col-md-6:eq(0)');
+    
 
     var table = $('#landlordView').DataTable({
         lengthChange: false,
