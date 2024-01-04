@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var table = $('#tenantsView').DataTable({
-        lengthChange: false,
+        lengthChange: true,
+        "pageLength": 100,
         buttons: ['copy', 'excel', 'pdf', 'colvis']
     });
 

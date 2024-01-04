@@ -63,7 +63,7 @@
           <input type="number" class="form-control ps-2" id="electricity" name="electricity" placeholder="$" required autocomplete="off">
         </div>
         <div class="col-9">
-          <a href="../tables/units_view.php" class="btn btn-success">Back</a>
+          <a href="../tables/units_view.php" class="btn btn-success">Back to units</a>
         </div>
         <div class="col-3">
           <button type="submit" name="bill" id="submitBill" class="btn btn-primary">Submit</button>

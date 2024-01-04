@@ -41,7 +41,7 @@
                             <tbody>
                                 <?php
 
-                                $sql = "select * from landlords";
+                                $sql = "SELECT landlords.id AS id, landlords.name AS name, landlords.phone_number AS phone_number, landlords.email AS email, COUNT(properties.id) AS number_of_properties FROM landlords LEFT JOIN properties ON landlords.id = properties.landlord_id GROUP BY landlords.id, landlords.name, landlords.phone_number, landlords.email";
                                 $result = mysqli_query($con, $sql);
                                 if ($result) {
                                     while ($row = mysqli_fetch_assoc($result)) {

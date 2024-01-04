@@ -90,20 +90,20 @@
           </ul>
         </div>
         </li>
-        <li class="nav-item mt-2">
-        <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="false">
+        <!-- <li class="nav-item mt-2">
+        <a class="nav-link btn-toggle collapsed" dat-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="false">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">inventory</i>
           </div>
           <span class="nav-link-text ms-1">Inventory</span>
-        </a>
+        </a>a
         <div class="collapse" id="inventory-collapse">
           <ul class="btn-toggle-nav list-unstyled">
             <li><a href="#" class="light-link text-white drop ms-6">Property Units</a></li>
             <li><a href="#" class="light-link text-white drop ms-6">Create Property</a></li>
           </ul>
         </div>
-        </li>
+        </li> -->
         <li class="nav-item mt-2">
           <a class="nav-link text-white " href="../tables/invoice_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

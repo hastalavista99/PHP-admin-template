@@ -30,9 +30,4 @@ if (isset($_POST['hiddendata'])) {
     $sql = "UPDATE landlords SET name='$name', phone_number='$mobile', email='$email' WHERE id=$userid";
 
     $result = mysqli_query($con, $sql);
-    if (!$result) {
-        die("Update failed. Error: " . mysqli_error($con));
-    } else {
-        echo "success";
-    }
 }

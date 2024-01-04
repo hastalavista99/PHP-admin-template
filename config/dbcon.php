@@ -26,9 +26,20 @@ if(isset($_POST['tenant']))
 }
 
    //VACATING TENANTS
-   if(isset($_GET['vacate_tenant_id'])){
-    $vacate_id = $_GET['vacate_tenant_id'];
+   if(isset($_GET['vacateid'])){
+    $vacate_id = $_GET['vacateid'];
     $comment = $_GET['comment'];
+
+    $getUnitIdQuery = "SELECT unit_id FROM tenants_two WHERE id = $vacate_id";
+    $unitIdResult = mysqli_query($con, $getUnitIdQuery);
+
+    if (!$unitIdResult) {
+        die(mysqli_error($con));
+    }
+
+    $row = mysqli_fetch_assoc($unitIdResult);
+    $vacate_unit_id = $row['unit_id'];
+
 
     $sql = "UPDATE tenants_two 
     SET tenant_status = 'unassigned', property_id = NULL, unit_id = NULL 
@@ -43,6 +54,7 @@ if(isset($_POST['tenant']))
     
     $sql3 = "INSERT INTO vacate (tenant_id,comment) VALUES ($vacate_id, '$comment')";
     $result3 = mysqli_query($con, $sql3);
+
 
     if(!$result){
         die(mysqli_error($con));

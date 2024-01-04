@@ -83,7 +83,7 @@
     </script>
 
     <div class="col-10">
-      <a href="../tables/tenants_view.php" class="btn btn-success">Back</a>
+      <a href="../tables/tenants_view.php" class="btn btn-success">Back to tenants</a>
     </div>
     <div class="col-2">
       <button type="submit" name="assign" id="submitAssign" class="btn btn-primary">Assign</button>

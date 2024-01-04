@@ -9,13 +9,15 @@ if(isset($_POST['displayLandlord'])){
         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone No</th>
         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">properties</th>
         
         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operations</th>
       </tr>
     </thead>
     <tbody>';
 
-    $sql = "SELECT * FROM landlords";
+    // $sql = "SELECT * FROM landlords";
+    $sql = "SELECT landlords.id AS id, landlords.name AS name, landlords.phone_number AS phone_number, landlords.email AS email, COUNT(properties.id) AS number_of_properties FROM landlords LEFT JOIN properties ON landlords.id = properties.landlord_id GROUP BY landlords.id, landlords.name, landlords.phone_number, landlords.email";
     $result = mysqli_query($con, $sql);
     $number=1;
 
@@ -25,15 +27,16 @@ if(isset($_POST['displayLandlord'])){
         $name = $row['name'];
         $phone = $row['phone_number'];
         $email = $row['email'];
-        // $properties = $row['number_of_properties'];
+        $properties = $row['number_of_properties'];
         $table .= '
         <tr>
         <td scope="row" class="text-center">' . $number . '</td>
         <td class="text-center">' . $name . '</td>
         <td class="text-center">' . $phone . '</td>
         <td class="text-center">' . $email . '</td>
-        <td class="text-center"><button class="btn btn-success btn-sm my-2" onclick="getLandlordDetails('.$id.')"><i class="material-icons opacity-10 fs-5">edit</i></button>
-<button class="btn btn-danger btn-sm my-2" onclick="deleteLandlord('.$id.')"><i class="material-icons opacity-10 fs-5">delete</i></button>
+        <td class="text-center">' . $properties . '</td>
+        <td class="text-center"><button class="btn btn-success btn-sm my-0" onclick="getLandlordDetails('.$id.')"><i class="material-icons opacity-10 fs-5">edit</i></button>
+<button class="btn btn-danger btn-sm my-0" onclick="deleteLandlord('.$id.')"><i class="material-icons opacity-10 fs-5">delete</i></button>
 </td>
       </tr>
       ';
@@ -46,7 +49,7 @@ if(isset($_POST['displayLandlord'])){
 ?>
 
 <!-- Include jQuery and DataTables scripts -->
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -56,7 +59,9 @@ if(isset($_POST['displayLandlord'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script> -->
+
+<?php include '../includes/js_links.php' ?>
 
 
 <!-- Initialize DataTables on your table -->

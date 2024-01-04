@@ -34,6 +34,8 @@ if (isset($_POST['sign_in'])) {
         $num = mysqli_num_rows($result);
         if ($num > 0) {
             $login = 1;
+            $row = mysqli_fetch_assoc($result);
+            $role = $row['role'];
             session_start();
             $_SESSION['username'] = $name;
             if (isset($_POST['remember'])) {
@@ -45,7 +47,7 @@ if (isset($_POST['sign_in'])) {
               setcookie("remember", "", time() - 36000);
             }
             
-            header('location: index.php');
+            header('location: index.php?role='.$row['role'].'');
              
         } else {
             $invalid = 1;
@@ -123,10 +125,10 @@ if (isset($_POST['sign_in'])) {
                   <div class="text-center">
                     <button type="submit" name="sign_in" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                   </div>
-                  <p class="mt-4 text-sm text-center">
+                  <!-- <p class="mt-4 text-sm text-center">
                     Don't have an account?
                     <a href="sign-up.php" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                  </p>
+                  </p> -->
                 </form>
               </div>
             </div>

@@ -84,7 +84,7 @@
                                   <td class="text-center">'. $row['service_charge'] .'</td>
                                   <td class="text-center">'. $row['water'] .'</td>
                                   <td class="text-center">'. $row['electricity'] .'</td>
-                                  <td class="text-center">'. $total .'</td>
+                                  <td class="text-center font-weight-bolder">'. $total .'</td>
                                 </tr>';
                                
                           }

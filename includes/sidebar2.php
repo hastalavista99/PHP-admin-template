@@ -62,7 +62,7 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="../tables/property_sale_view.php">
+          <a class="nav-link text-white " href="tables/property_sale_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">landscape</i>
             </div>
@@ -91,7 +91,7 @@
           </ul>
         </div>
         </li>
-        <li class="nav-item mt-2">
+        <!-- <li class="nav-item mt-2">
         <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="false">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">inventory</i>
@@ -104,7 +104,7 @@
             <li><a href="#" class="light-link text-white drop ms-6">Create Property</a></li>
           </ul>
         </div>
-        </li>
+        </li> -->
         <li class="nav-item mt-2">
           <a class="nav-link text-white " href="tables/invoice_view.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

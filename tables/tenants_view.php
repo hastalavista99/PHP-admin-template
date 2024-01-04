@@ -50,6 +50,7 @@
                         tenants_two.phone_number AS phone_number,
                         tenants_two.id_number AS id_number,
                         tenants_two.tenant_status AS tenant_status,
+                        tenants_two.unit_id AS unit_id,
                         properties.name AS property_name,
                         units_two.unit_number AS unit_number
                       FROM 
@@ -85,12 +86,13 @@
                                   <button type="button" class="btn btn-info btn-sm my-1 assign_btn"  ><a href="../forms/assign_tenant.php?assign_id=' . $row["id"] . '" class="text-white">Assign</a></button>';
                     } else {
                       echo '<td class="text-center">
-                          <button type="button" class="btn btn-warning btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <button type="button" class="btn btn-warning btn-sm my-1" data-bs-toggle="modal" data-bs-target="#exampleModal'.$row["id"].'">
                           VACATE
                         </button>';
                     }
+                    
 
-                    echo '<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    echo '<div class="modal fade" id="exampleModal'.$row["id"].'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -98,11 +100,12 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form action="../config/dbcon.php?vacate_tenant_id=' . $row['id'] . '" method="get">
+                              <form action="../config/dbcon.php" method="get" autocomplete="off">
                                 <div class="mb-3">
                                   <lable class="form-label" for="vacate_comment">Reason for Vacating Tenant:</lable>
                                   <textarea class="form-control px-2" name="comment" id="vacate_comment" rows="3" required></textarea>
                                 </div>
+                                <input type="hidden" name="vacateid" value="'.$row["id"].'">
                                 <button type="button" class="btn btn-info btn-sm mx-2" data-bs-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-warning vacate_btn btn-sm" name="vacate_tenant_id">Vacate</button>
                               </form>
@@ -413,7 +416,7 @@
     </div>
   </div>
 </div>
-
+<?php include '../includes/js_links.php' ?>
 
 <script>
   $(document).ready(function() {
@@ -476,6 +479,22 @@
       });
     }
   });
+</script>
+<script>
+  function getTenantDetails(tenantid){
+    $('#hiddenTenantData').val(vacateid);
+
+    $.ajax({
+      url: "../config/dbcon.php",
+      type: 'post',
+      data: {
+        vacateTenantid: vacateid
+      },
+      success: function(data,status) {
+        console.log(vacateid);
+      }
+    });
+  }
 </script>
 
 <?php include '../includes/footer.php'; ?>
