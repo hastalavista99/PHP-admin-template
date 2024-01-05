@@ -92,7 +92,7 @@
                                 <td class="text-center">' . $property_name . '</td>
                                 <td class="text-center">' . $unit_name . '</td>
                                 <td class="text-center">' . $landlord_name . '</td>
-                                <td class="text-center">' . $amount . '</td>
+                                <td class="text-center"><span class="text-xs">KES</span> ' . $amount . '</td>
                                 <td class="text-center">' . $payment_type . '</td>
                                 <td class="text-center">' . $date . '</td>
                                 

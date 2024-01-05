@@ -1,13 +1,5 @@
 $(document).ready(function () {
-    
 
-    var table = $('#landlordView').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
-    });
-
-    table.buttons().container()
-        .appendTo('#landlordView_wrapper .col-md-6:eq(0)');
 
     var table = $('#propertySaleView').DataTable({
         lengthChange: false,
@@ -18,31 +10,15 @@ $(document).ready(function () {
         .appendTo('#propertySaleView_wrapper .col-md-6:eq(0)');
 
 
-    var table = $('#propertyView').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
-    });
-
-    table.buttons().container()
-        .appendTo('#propertyView_wrapper .col-md-6:eq(0)');
-
-
     var table = $('#unitsView').DataTable({
         lengthChange: false,
+        "pageLength": 50,
         buttons: ['copy', 'excel', 'pdf', 'colvis']
     });
 
     table.buttons().container()
         .appendTo('#unitsView_wrapper .col-md-6:eq(0)');
 
-
-    var table = $('#unitsSaleView').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
-    });
-
-    table.buttons().container()
-        .appendTo('#unitsSaleView_wrapper .col-md-6:eq(0)');
 
     var table = $('#buyersTable').DataTable({
         lengthChange: false,
@@ -102,5 +78,5 @@ $(document).ready(function () {
         .appendTo('#paymentReport_wrapper .col-md-6:eq(0)');
 });
 
-let leaseView = new DataTable('#leaseView');
+
 

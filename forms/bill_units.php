@@ -1,32 +1,5 @@
 <?php include '../config/connect.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Property Manager
-  </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
-  <link id="pagestyle" href="../assets/css/material-dashboard.css" rel="stylesheet" />
-  <style>
-    <?php include('../assets/css/material-dashboard.css'); ?>
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-</head>
-
-<body class="g-sidenav-show  bg-gray-200">
-  <?php include('../includes/sidebar.php'); ?>
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-    <?php include('../includes/navbar.php'); ?>
+<?php include '../includes/header.php'; ?>
 
 
     <div class="container">
@@ -142,7 +115,7 @@
         </table>
         <?php
         echo '<div class="d-flex justify-content-end me-3">
-          <div class="total h4">Total: ' . $total . ' </div>
+          <div class="total h4">Total: <span class="text-xs">KES</span> ' . $total . ' </div>
         </div>';
         ?>
       </div>

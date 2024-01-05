@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="table-responsive p-0">
-            <table class="table table-striped table-hover align-items-center mb-0 don" id="unitSaleView">
+            <table id="unitSaleView" class="table table-hover align-items-center mb-0 don" >
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
@@ -47,7 +47,7 @@
               <tbody>
                 <?php
 
-                $sql = "SELECT units_sale.id AS unit_id, property_sale.name AS property_name, units_sale.name AS unit_name, units_sale.booked AS booked, units_sale.price, units_sale.commission, units_sale.deposit
+                $sql = "SELECT units_sale.id AS unit_id, property_sale.name AS property_name, property_sale.id AS property_id, units_sale.name AS unit_name, units_sale.booked AS booked, units_sale.sold AS sold, units_sale.price, units_sale.commission, units_sale.deposit
                           FROM units_sale
                           LEFT JOIN property_sale ON units_sale.property_sale_id = property_sale.id";
 
@@ -59,15 +59,17 @@
                     echo '<td scope="row" class="text-center">' . $row1["unit_id"] . '</td>';
                     echo ' <td class="text-center">' . $row1["property_name"] . '</td>';
                     echo '<td class="text-center">' . $row1["unit_name"] . '</td>';
-                    echo '<td class="text-center">' . $row1["commission"] . '</td>';
-                    echo '<td class="text-center">' . $row1["deposit"] . '</td>';
-                    echo '<td class="text-center">' . $row1["price"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["commission"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["deposit"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["price"] . '</td>';
                     
 
-                    if ($row1['booked'] === 'Yes') {
-                      echo '<td class="text-center"><button class="btn btn-danger btn-sm my-2 me-2" disabled>booked</button><a style="color: red;"  name="delete_unit_id" disabled><i class="material-icons opacity-2">delete</i></a></td>';
+                    if ($row1['booked'] === 'Yes' && $row1['sold'] === 'No') {
+                      echo '<td class="text-center"><a class="btn btn-danger btn-sm my-0 me-2" name="unbook" href="delete.php?unbook=' . $row1["unit_id"] . '&property_id='.$row1['property_id'].'">unbook</a><a style="color: red;"  name="delete_unit_id" disabled><i class="material-icons opacity-2">delete</i></a></td>';
+                    } else if($row1['booked'] === 'Yes' && $row1['sold'] === 'Yes'){
+                      echo '<td class="text-center"><button class="btn btn-link btn-sm my-0 me-2 disabled">sold</button><a style="color: red;"  name="delete_unit_id" disabled><i class="material-icons opacity-2">delete</i></a></td>';
                     } else {
-                       echo '<td class="text-center"><a class="btn btn-success btn-sm my-2 me-2"name="sell_id" href="../forms/sell_units.php?sell_id=' . $row1["unit_id"] . '">book</a><a style="color: red;"  name="delete_unit_id" href="../config/dbcon.php?delete_unit_id=' . $row1["unit_id"] . '"><i class="material-icons opacity-10">delete</i></a></td>';
+                       echo '<td class="text-center"><a class="btn btn-success btn-sm my-0 me-2"name="sell_id" href="../forms/sell_units.php?sell_id=' . $row1["unit_id"] . '&property_id='.$row1['property_id'].'">book</a><a style="color: red;"  name="delete_unit_id" href="../config/dbcon.php?delete_unit_id=' . $row1["unit_id"] . '"><i class="material-icons opacity-10">delete</i></a></td>';
                     }
 
                     
@@ -89,7 +91,7 @@
   </div>
 
 </div>
-<?php include('../includes/footer.php') ?>
+
 </main>
 <div class="fixed-plugin">
   <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -250,6 +252,17 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/perfect-scrollbar.min.js"></script>
 <script src="../assets/js/smooth-scrollbar.min.js"></script>
+<?php include '../includes/js_links.php' ?>
+<script>
+      var table = $('#unitSaleView').DataTable({
+        lengthChange: false,
+        "pageLength": 50,
+        buttons: ['copy', 'excel', 'pdf', 'colvis']
+    });
+
+    table.buttons().container()
+        .appendTo('#unitSaleView_wrapper .col-md-6:eq(0)');
+</script>
 <script>
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -263,6 +276,4 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
-</body>
-
-</html>
+<?php include('../includes/footer.php') ?>

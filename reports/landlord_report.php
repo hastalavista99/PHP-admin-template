@@ -54,7 +54,7 @@
 
                                         echo '<tr>
                                 <td scope="row" class="text-center">' . $id . '</td>
-                                <td class="text-center text-capitalize"><a href="individual_report.php?land_id=' . $id . '">' . $name . '</a></td>
+                                <td class="text-center text-uppercase"><a href="individual_report.php?land_id=' . $id . '">' . $name . '</a></td>
                                 <td class="text-center">' . $phone_number . '</td>
                                 <td class="text-center">' . $email . '</td>
                                 <td class="text-center">' . $no_of_properties . '</td>

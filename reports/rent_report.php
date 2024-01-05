@@ -80,7 +80,7 @@
                                 <td class="text-center">' . $landlord . '</td>
                                 <td class="text-center">' . $no_of_units . '</td>
                                 <td class="text-center">' . $occupied . '</td>
-                                <td class="text-center">' . $rent . '</td>
+                                <td class="text-center font-weight-bolder"><span class="text-xs">KES</span> ' . $rent . '</td>
                                 
                               </tr>';
                                     }

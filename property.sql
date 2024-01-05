@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2023 at 03:53 PM
+-- Generation Time: Jan 05, 2024 at 09:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,7 +65,10 @@ INSERT INTO `billing_two` (`id`, `unit_id`, `commission`, `deposit`, `rent`, `se
 (117, 10, 900, 900, 900, 900, 900, 900),
 (241, 15, 34234, 84834, 338, 8, 4, 8),
 (242, 16, 3423, 43, 43, 43, 34, 43),
-(243, 19, 400, 800, 400, 77, 77, 77);
+(243, 19, 400, 800, 400, 77, 77, 77),
+(244, 33, 700, 800, 800, 3737, 737, 737),
+(245, 37, 500, 8776, 898, 677, 7, 7),
+(246, 29, 600, 444, 233, 455, 44, 555);
 
 -- --------------------------------------------------------
 
@@ -122,7 +125,11 @@ INSERT INTO `invoices_two` (`id`, `tenant_id`, `property_id`, `unit_id`) VALUES
 (7, 13, 9, 19),
 (8, 5, 9, 19),
 (9, 11, 4, 9),
-(10, 6, 9, 19);
+(10, 6, 9, 19),
+(11, 14, 11, 33),
+(12, 15, 12, 37),
+(13, 5, 5, 29),
+(14, 7, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -134,24 +141,52 @@ CREATE TABLE `landlords` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `phone_number` varchar(50) NOT NULL,
-  `email` varchar(20) NOT NULL,
-  `number_of_properties` int(11) DEFAULT 0,
-  `occupied` int(11) NOT NULL,
-  `vacant` int(11) NOT NULL
+  `email` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `landlords`
 --
 
-INSERT INTO `landlords` (`id`, `name`, `phone_number`, `email`, `number_of_properties`, `occupied`, `vacant`) VALUES
-(4, 'kimani kimani', '075355533', 'kimani@gmail.com', 1, 0, 0),
-(5, 'charles omollo', '0735353535', 'omollo@gmail.com', 2, 0, 0),
-(6, 'Peter Kilonzo', '07464646464', 'kllonx@gmail.com', 1, 0, 0),
-(7, 'Joseph Kamau', '07645454533', 'kamau@gmail.com', 0, 0, 0),
-(8, 'mit Persona', '074646464', 'persona@gmail.com', 0, 0, 0),
-(9, 'toitan toiran', '076665653', 'torona@gmail.com', 0, 0, 0),
-(10, 'Jsckdkdk kakakak', '9494884854', 'jack@mitit.com', 0, 0, 0);
+INSERT INTO `landlords` (`id`, `name`, `phone_number`, `email`) VALUES
+(4, 'kimani kimanino', '075355533', 'kimani@gmail.com'),
+(5, 'charles omollo', '0735353535', 'omollo@gmail.com'),
+(6, 'Peter Kilonzo', '07464646464', 'kllonxff@gmail.com'),
+(7, 'Joseph Kamau', '07645454533', 'kamau@gmail.com'),
+(8, 'mit Persona', '074646464', 'persona@gmail.com'),
+(9, 'toitan toiran', '076665653', 'torona@gmail.com'),
+(10, 'Jsckdkdk kakakak', '9494884854', 'jack@mitit.com'),
+(11, 'Emmanuel Kinai', '08383838', 'kinai@gmail.com'),
+(12, 'Winfred Mutuku', '0734343343', 'mutuku@gmail.com'),
+(13, 'Kimaniiiiiiiii', '0764646464', 'kim@gmail.com'),
+(15, 'shiwa Shiwa ', '075555555', 'shiwa@gmail.com'),
+(16, 'Alicia Alice', '077777777', 'alice@gmail.com'),
+(17, 'kazan kazan', '0838383838', 'kazan@gmail.com'),
+(18, 'mushsts shtua', '0999998', 'shtus@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `type_payment` enum('cash','cheque','bank_transfer') NOT NULL,
+  `cheque_no` varchar(50) DEFAULT NULL,
+  `bank_name` varchar(50) DEFAULT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `paid` enum('Yes','No') NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `amount`, `type_payment`, `cheque_no`, `bank_name`, `buyer_id`, `paid`, `date`) VALUES
+(1, 3000000, 'cash', '', '', 1, 'Yes', '2023-12-13 14:24:48');
 
 -- --------------------------------------------------------
 
@@ -166,7 +201,7 @@ CREATE TABLE `properties` (
   `landlord_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   `active_status` enum('active','inactive') DEFAULT NULL,
-  `number_of_units` int(11) NOT NULL DEFAULT 1,
+  `number_of_units` int(11) NOT NULL,
   `occupied_units` int(11) NOT NULL,
   `vacant_units` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -181,7 +216,12 @@ INSERT INTO `properties` (`id`, `name`, `location`, `landlord_id`, `type_id`, `a
 (6, 'Kahska', 'Kabete', 5, 5, 'active', 4, 3, 1),
 (7, 'Kitale Flats', 'Kitale', 5, 3, 'inactive', 1, 1, 0),
 (8, 'Irman House', 'Kitengela', 8, 1, 'active', 2, 0, 0),
-(9, 'Cemak', 'Kitengela', 8, 1, 'active', 1, 0, 0);
+(9, 'Cemak', 'Kitengela', 8, 1, 'active', 1, 0, 0),
+(11, 'eagles', 'roadblock', 11, 1, 'active', 2, 0, 0),
+(12, 'Naivas', 'Kitengela', 12, 1, 'active', 2, 0, 0),
+(13, 'Quickmatt', 'Kitengela', 12, 1, 'active', 2, 0, 0),
+(14, 'Olloooosl', 'Noonkopir', 7, 1, 'active', 1, 0, 0),
+(15, 'Montevideo', 'Skyline', 18, 1, 'active', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -204,9 +244,12 @@ CREATE TABLE `property_sale` (
 
 INSERT INTO `property_sale` (`id`, `name`, `landlord_id`, `no_of_units`, `location`, `image`) VALUES
 (1, 'Dykan', 5, 1, 'Kisaju', ''),
-(2, 'lichen', 8, 1, 'kitengela', ''),
-(3, 'steelfarm', 6, 1, 'Athi River', ''),
-(4, 'Irman', 6, 1, 'Athi River', 0x6c616e64322e6a706567);
+(2, 'lichen', 8, 2, 'kitengela', ''),
+(3, 'steelfarm', 6, 2, 'Athi River', ''),
+(4, 'Irman', 6, 1, 'Athi River', 0x6c616e64322e6a706567),
+(5, 'Kimas', 5, 2, 'Kitengela', ''),
+(6, 'Trokas', 7, 2, 'Mlolongo', ''),
+(7, 'KAG', 12, 2, 'Korompoi', '');
 
 -- --------------------------------------------------------
 
@@ -229,6 +272,34 @@ INSERT INTO `property_types` (`id`, `name`) VALUES
 (3, 'bungalow'),
 (4, 'villa'),
 (5, 'townhouse');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sell`
+--
+
+CREATE TABLE `sell` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `mobile` varchar(50) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `date` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sell`
+--
+
+INSERT INTO `sell` (`id`, `name`, `email`, `mobile`, `unit_id`, `date`) VALUES
+(1, 'kimani kalonzo', 'kalli@gmail.com', '0735353535', 1, '2023-12-12 09:21:05'),
+(2, 'joseph omondi', 'omosh@gmail.com', '0777474474', 2, '2023-12-12 09:24:28'),
+(3, 'sylvia kamande', 'kama@gmail.com', '0848484', 3, '2023-12-12 09:25:40'),
+(4, 'Peter', 'pete@gmail.com', '083848484', 5, '2023-12-13 06:00:27'),
+(5, 'joseph', 'ksksk@gmail.com', '0994949', 4, '2023-12-13 10:34:15'),
+(6, 'Charles', 'charlie@gmail.com', '0383939', 6, '2023-12-13 10:37:32'),
+(7, 'Gregory', 'greg@gmail.com', '08484848', 7, '2023-12-15 07:05:44');
 
 -- --------------------------------------------------------
 
@@ -284,15 +355,18 @@ CREATE TABLE `tenants_two` (
 --
 
 INSERT INTO `tenants_two` (`id`, `name`, `email`, `phone_number`, `id_number`, `contract`, `tenant_status`, `property_id`, `unit_id`, `billing_id`) VALUES
-(5, 'Greg Omondi', 'omondi@gmail.com', '08474747', '84848', 'rent', 'unassigned', NULL, NULL, NULL),
-(6, 'Karanja Kimani', 'karan@gmail.com', '07353535', '847474', 'rent', 'assigned', 9, 19, NULL),
-(7, 'Neema Nanyama', 'neema@gmail.com', '0742273727', '334734', 'rent', 'assigned', 8, 15, NULL),
-(8, 'Margaret Kitambo', 'kitambo@gmail.com', '07423838383', '99939', 'rent', 'assigned', 4, 10, NULL),
-(9, 'kevin kevin', 'kevin@gmail.com', '0303003', '00303', 'rent', 'assigned', 6, 7, NULL),
+(5, 'Greg Omondina', 'omondi@gmail.com', '08474747', '84848', 'rent', 'unassigned', NULL, NULL, NULL),
+(6, 'Karanja Kimani', 'karan@gmail.com', '07353535', '847474', 'rent', 'unassigned', NULL, NULL, NULL),
+(7, 'Neema Nanyama', 'neema@gmail.com', '0742273727', '334734', 'rent', 'assigned', 6, 7, NULL),
+(8, 'Margaret Kitambo', 'kitambo@gmail.com', '07423838383', '99939', 'rent', 'unassigned', NULL, NULL, NULL),
+(9, 'kevin kevin', 'kevin@gmail.com', '0303003', '00303', 'rent', 'unassigned', NULL, NULL, NULL),
 (10, 'Joseph Ngugi', 'ngugi@gmail.com', '07333333', '444444', 'rent', 'assigned', 8, 16, NULL),
 (11, 'Kalonzo Mwale', 'mwale@gmail.com', '07363636', '44646', 'rent', 'assigned', 4, 9, NULL),
 (12, 'Charles Ninja', 'ninja@gmail.com', '0377477474', '77474', NULL, 'unassigned', NULL, NULL, NULL),
-(13, 'Sidian Kimatu', 'kimatu@gmail.com', '2452523325', '22353', 'rent', 'unassigned', NULL, NULL, NULL);
+(13, 'Sidian Kimatu', 'kimatu@gmail.com', '2452523325', '22353', 'rent', 'unassigned', NULL, NULL, NULL),
+(14, 'Gregory Omonci', 'omondi@gmail.com', '0734343', '535335', 'rent', 'assigned', 11, 33, NULL),
+(15, 'eueeueue eueueu', 'ee@gmail.com', '049848', '84848', 'rent', 'assigned', 12, 37, NULL),
+(16, 'Rae Sremmurd', '0999999', 'drum@gmail.com', '99999', NULL, 'unassigned', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -361,16 +435,41 @@ CREATE TABLE `units_sale` (
   `commission` int(11) NOT NULL,
   `deposit` int(11) NOT NULL,
   `price` int(11) NOT NULL,
-  `sold` enum('No','Yes') NOT NULL DEFAULT 'No'
+  `booked` enum('No','Yes') NOT NULL DEFAULT 'No'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `units_sale`
 --
 
-INSERT INTO `units_sale` (`id`, `property_sale_id`, `name`, `description`, `commission`, `deposit`, `price`, `sold`) VALUES
+INSERT INTO `units_sale` (`id`, `property_sale_id`, `name`, `description`, `commission`, `deposit`, `price`, `booked`) VALUES
 (1, 2, 'A1', '', 353333, 35353, 5323532, 'No'),
-(2, 4, 'A059', '50*100', 2323, 434234, 434343, 'No');
+(2, 4, 'A059', '50*100', 2323, 434234, 434343, 'No'),
+(3, 2, 'A02', '', 5345, 545, 454, 'Yes'),
+(4, 3, 'B01', '', 3333, 535355, 53533533, 'Yes'),
+(5, 5, 'z01', '', 8888, 8888, 8888, 'Yes'),
+(6, 6, 'Mit59', '', 433, 4343, 43343, 'Yes'),
+(7, 7, 'A03', '50*100', 8, 8, 7788, 'Yes');
+
+--
+-- Triggers `units_sale`
+--
+DELIMITER $$
+CREATE TRIGGER `after_unit_delete` AFTER DELETE ON `units_sale` FOR EACH ROW BEGIN
+    UPDATE property_sale
+    SET no_of_units = no_of_units - 1
+    WHERE id = OLD.property_sale_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_unit_insert` AFTER INSERT ON `units_sale` FOR EACH ROW BEGIN
+    UPDATE property_sale
+    SET no_of_units = no_of_units + 1
+    WHERE id = NEW.property_sale_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -399,11 +498,58 @@ INSERT INTO `units_two` (`id`, `property_id`, `unit_name`, `unit_number`, `descr
 (7, 6, 'kaka', '048', '', 'No', 'No', 'Yes'),
 (9, 4, 'est', '007', '', 'No', 'No', 'Yes'),
 (10, 4, 'wst', '008', '', 'Yes', 'No', 'No'),
-(15, 8, 'free', '005', '', 'No', 'No', 'Yes'),
+(15, 8, 'free', '005', '', 'Yes', 'No', 'No'),
 (16, 8, 'salon', '002', '', 'No', 'No', 'Yes'),
-(19, 9, 'g01', '001', '', 'No', 'No', 'Yes'),
-(29, 5, 'a1', '099', '', 'Yes', 'No', 'No'),
-(30, 8, 'shiran', '058', '', 'Yes', 'No', 'No');
+(19, 9, 'g01', '001', '', 'Yes', 'No', 'No'),
+(29, 5, 'a1', '099', '', 'No', 'No', 'Yes'),
+(30, 8, 'shiran', '058', '', 'Yes', 'No', 'No'),
+(33, 11, 'shop', '008', '', 'No', 'No', 'Yes'),
+(37, 12, 'Q01', '004', 'shop', 'No', 'No', 'Yes'),
+(40, 13, 'D02', '002', '', 'Yes', 'No', 'No'),
+(42, 14, 'shop', '009', '', 'Yes', 'No', 'No');
+
+--
+-- Triggers `units_two`
+--
+DELIMITER $$
+CREATE TRIGGER `after_units_delete` AFTER DELETE ON `units_two` FOR EACH ROW BEGIN
+    UPDATE properties
+    SET number_of_units = number_of_units - 1
+    WHERE id = OLD.property_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_units_insert` AFTER INSERT ON `units_two` FOR EACH ROW BEGIN
+    UPDATE properties
+    SET number_of_units = number_of_units + 1
+    WHERE id = NEW.property_id;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `role` enum('admin','user') NOT NULL,
+  `user_name` varchar(50) NOT NULL,
+  `user_email` varchar(50) NOT NULL,
+  `user_password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role`, `user_name`, `user_email`, `user_password`) VALUES
+(1, 'admin', 'jack jack', 'jack@gmail.com', '12345'),
+(2, 'admin', 'Peter', 'peter@gmail.com', '12345'),
+(7, 'user', 'Greg', 'greg@gmail.com', '1234');
 
 -- --------------------------------------------------------
 
@@ -425,7 +571,10 @@ CREATE TABLE `vacate` (
 --
 
 INSERT INTO `vacate` (`id`, `tenant_id`, `unit_id`, `property_id`, `comment`, `date`) VALUES
-(1, 5, 19, 9, '', '2023-12-08 13:34:58');
+(1, 5, 19, 9, '', '2023-12-08 13:34:58'),
+(2, 7, NULL, NULL, 'hhhdhdhd', '2024-01-04 07:50:01'),
+(3, 6, NULL, NULL, 'lllllll', '2024-01-04 07:50:21'),
+(4, 8, NULL, NULL, 'sfsfdfdfsdf', '2024-01-04 10:38:51');
 
 --
 -- Indexes for dumped tables
@@ -466,6 +615,13 @@ ALTER TABLE `landlords`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `buyer_id` (`buyer_id`);
+
+--
 -- Indexes for table `properties`
 --
 ALTER TABLE `properties`
@@ -485,6 +641,13 @@ ALTER TABLE `property_sale`
 --
 ALTER TABLE `property_types`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sell`
+--
+ALTER TABLE `sell`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `unit_id` (`unit_id`);
 
 --
 -- Indexes for table `tenants`
@@ -530,6 +693,13 @@ ALTER TABLE `units_two`
   ADD KEY `property_id` (`property_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_name` (`user_name`);
+
+--
 -- Indexes for table `vacate`
 --
 ALTER TABLE `vacate`
@@ -552,7 +722,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `billing_two`
 --
 ALTER TABLE `billing_two`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -564,31 +734,43 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `invoices_two`
 --
 ALTER TABLE `invoices_two`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `landlords`
 --
 ALTER TABLE `landlords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `property_sale`
 --
 ALTER TABLE `property_sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `property_types`
 --
 ALTER TABLE `property_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `sell`
+--
+ALTER TABLE `sell`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tenants`
@@ -600,7 +782,7 @@ ALTER TABLE `tenants`
 -- AUTO_INCREMENT for table `tenants_two`
 --
 ALTER TABLE `tenants_two`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tenant _assign`
@@ -618,19 +800,25 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `units_sale`
 --
 ALTER TABLE `units_sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `units_two`
 --
 ALTER TABLE `units_two`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `vacate`
 --
 ALTER TABLE `vacate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -653,6 +841,12 @@ ALTER TABLE `invoices_two`
   ADD CONSTRAINT `invoices_two_ibfk_3` FOREIGN KEY (`unit_id`) REFERENCES `units_two` (`id`);
 
 --
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `sell` (`id`);
+
+--
 -- Constraints for table `properties`
 --
 ALTER TABLE `properties`
@@ -665,6 +859,12 @@ ALTER TABLE `properties`
 --
 ALTER TABLE `property_sale`
   ADD CONSTRAINT `property_sale_ibfk_1` FOREIGN KEY (`landlord_id`) REFERENCES `landlords` (`id`);
+
+--
+-- Constraints for table `sell`
+--
+ALTER TABLE `sell`
+  ADD CONSTRAINT `sell_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `units_sale` (`id`);
 
 --
 -- Constraints for table `tenants`

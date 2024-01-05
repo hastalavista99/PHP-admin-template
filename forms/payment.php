@@ -4,14 +4,15 @@
 
     <?php
 
-    if (isset($_GET['pay_id'])) {
+    if (isset($_GET['pay_id']) && isset($_GET['unit_id'])) {
         $pay_id = $_GET['pay_id'];
+        $unit_id = $_GET['unit_id'];
     }
 
     ?>
 
 
-    <form class="row g-3 my-1" action="paymentcon.php?pay_id=<?php echo $pay_id; ?>" method="post">
+    <form class="row g-3 my-1" action="paymentcon.php?pay_id=<?php echo $pay_id; ?>&unit_id=<?php echo $unit_id; ?>" method="post">
         <div class="col-md-3">
             <label for="payment" class="form-label">Amount</label>
             <input type="number" name="amount" id="payment" class="form-control ps-2">
@@ -65,11 +66,11 @@
             }
         </script>
 
-        <div class="col-10">
-            <a href="../tables/tenants_view.php" class="btn btn-success">Back</a>
+        <div class="col-8">
+            <a href="../tables/buyers_view.php" class="btn btn-success">Back</a>
         </div>
-        <div class="col-2">
-            <button type="submit" name="pay" id="submitAssign" class="btn btn-primary">Assign</button>
+        <div class="col-4">
+            <button type="submit" name="pay" id="submitAssign" class="btn btn-primary" >proceed to payment</button>
         </div>
     </form>
 
@@ -151,12 +152,7 @@
             </tbody>
         </table>
     </div>
-    <?php
 
-    echo '<div class="d-flex justify-content-end me-3">
-          <div class="total h4">Total: ' . $total . ' </div>
-        </div>';
-    ?>
 </div>
 
 
