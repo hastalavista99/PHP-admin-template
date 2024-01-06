@@ -29,7 +29,7 @@ if(isset($_GET['unbook'])){
     $sql = "UPDATE units_sale SET booked='No' WHERE property_sale_id=$property_id";
     $result=mysqli_query($con,$sql);
 
-    $sql2 = "DELETE FROM sell WHERE unit_id=$unbookid";
+    $sql2 = "UPDATE sell SET booked='No' WHERE unit_id=$unbookid";
     $result2=mysqli_query($con,$sql2);
 
     if($result && $result2){

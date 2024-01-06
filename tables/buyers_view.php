@@ -60,7 +60,9 @@
                       LEFT JOIN
                         property_sale ON units_sale.property_sale_id = property_sale.id
                       LEFT JOIN
-                        payment ON payment.buyer_id = sell.id";
+                        payment ON payment.buyer_id = sell.id
+                        WHERE 
+                        sell.booked='Yes'";
 
                 $result = $con->query($sql);
 
