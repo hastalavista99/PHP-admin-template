@@ -27,7 +27,7 @@
 
           </div>
           <div class="table-responsive p-0">
-            <table class="table table-striped table-hover align-items-center mb-0" id="buyersTable">
+            <table class="table table-hover align-items-center mb-0" id="buyersTable">
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">buyer id</th>
@@ -82,9 +82,9 @@
                     echo '<td class="text-center">' . $row["date_of"] . '</td>';
 
                     if ($row['paid'] === 'Yes') {
-                      echo '<td class="text-center"><button class="btn btn-danger btn-sm my-2 me-2" disabled>paid</button></td>';
+                      echo '<td class="text-center"><button class="btn btn-danger btn-sm my-0 me-2" disabled>paid</button></td>';
                     } else {
-                      echo '<td class="text-center"><a href="../forms/payment.php?pay_id='.$row['id'].'&unit_id='.$row['unit_id'].'" class="btn btn-success btn-sm my-2">pay</a></td>';
+                      echo '<td class="text-center"><a href="../forms/payment.php?pay_id='.$row['id'].'&unit_id='.$row['unit_id'].'" class="btn btn-success btn-sm my-0">pay</a></td>';
                     }
 
                     echo '</tr>';

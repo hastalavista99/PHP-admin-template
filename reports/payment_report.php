@@ -47,6 +47,7 @@
 
                                 $sql = "SELECT
                                     payment.id,
+                                    sell.id AS sell_id,
                                     sell.name AS buyer_name,
                                     property_sale.name AS property_name,
                                     units_sale.name AS unit_name,
@@ -67,15 +68,20 @@
 
                                 $result = mysqli_query($con, $sql);
 
-                                $sql1 = "SELECT
+                               
+                                if ($result) {
+                                    
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['sell_id'];
+                                         $sql1 = "SELECT
                                 LPAD(id, 4, '0') AS receipt_number
                                 FROM
-                                    payment";
+                                    payment
+                                WHERE
+                                    buyer_id = $id";
                                 $result1 = $con->query($sql1);
-
-                                if ($result) {
-                                    $row1 = $result1->fetch_assoc();
-                                    while ($row = mysqli_fetch_assoc($result)) {
+                                $row1 = $result1->fetch_assoc();
+                                        
                                         $receipt = $row1['receipt_number'];
                                         $buyer = $row['buyer_name'];
                                         $property_name = $row['property_name'];

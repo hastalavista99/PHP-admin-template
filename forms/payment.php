@@ -121,7 +121,9 @@
                 $sql1 = "SELECT
                 LPAD(id, 4, '0') AS receipt_number
                 FROM
-                    payment";
+                    payment
+                WHERE
+                    id=$pay_id";
 
                 $result1 = $con->query($sql1);
 
