@@ -166,21 +166,33 @@ if (isset($_POST['displayProperty'])) {
     <tbody>';
 
 
-  $sql = "SELECT properties.id AS property_id, properties.name AS property_name, properties.location, landlords.name AS landlord_name,properties.number_of_units AS number_of_units, properties.occupied_units AS occupied_units, properties.vacant_units AS vacant_units, properties.active_status AS active_status
+  $sql = "SELECT properties.id AS property_id, properties.name AS property_name, properties.location, landlords.name AS landlord_name, properties.active_status AS active_status
   FROM properties
   JOIN landlords ON properties.landlord_id = landlords.id";
   $result = mysqli_query($con, $sql);
   $number = 1;
 
+
+
   while ($row = mysqli_fetch_assoc($result)) {
 
     $propid = $row['property_id'];
+
+    $sql2 = "SELECT COUNT(available) AS vacant_units FROM units_two WHERE property_id = $propid AND available = 'Yes'";
+    $result2 = mysqli_query($con, $sql2);
+    $row2 = mysqli_fetch_assoc($result2);
+    $sql3 = "SELECT COUNT(occupied) AS occupied_units FROM units_two WHERE property_id = $propid AND occupied = 'Yes'";
+    $result3 = mysqli_query($con, $sql3);
+    $row3 = mysqli_fetch_assoc($result3);
+    $sql4 = "SELECT COUNT(id) AS number_of_units FROM units_two WHERE property_id = $propid";
+    $result4 = mysqli_query($con, $sql4);
+    $row4 = mysqli_fetch_assoc($result4);
     $property_name = $row['property_name'];
     $landlord_name = $row['landlord_name'];
     $location = $row['location'];
-    $occupied_units = $row['occupied_units'];
-    $number_of_units = $row['number_of_units'];
-    $vacant_units = $row['vacant_units'];
+    $occupied_units = $row3['occupied_units'];
+    $number_of_units = $row4['number_of_units'];
+    $vacant_units = $row2['vacant_units'];
     $active_status = $row['active_status'];
     $table .= '
         <tr>
@@ -200,6 +212,57 @@ if (isset($_POST['displayProperty'])) {
     $number++;
   }
   $table .= " </tbody></table>";
+  echo $table;
+}
+
+
+
+if (isset($_POST['displayUser'])) {
+  $table = '<table class="table table-hover align-items-center mb-0" id="userView">
+  <thead>
+    <tr>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operations</th>
+    </tr>
+  </thead>
+  <tbody>';
+
+  // $sql = "SELECT * FROM landlords";
+  $sql = "SELECT
+  users.id,
+  users.role,
+  users.user_name,
+  users.user_email
+  FROM 
+  users ";
+  $result = mysqli_query($con, $sql);
+  $number = 1;
+
+  while ($row = mysqli_fetch_assoc($result)) {
+
+    $userid = $row['id'];
+    $name = $row['user_name'];
+    $email = $row['user_email'];
+    $role = $row['role'];
+
+    $table .= '
+      <tr>
+      <td scope="row" class="text-center">' . $number . '</td>
+      <td class="text-center">' . $name . '</td>
+      <td class="text-center">' . $email . '</td>
+      <td class="text-center">' . $role . '</td>
+      <td class="text-center">
+  <button class="btn btn-link text-danger btn-sm my-0" onclick="deleteUser(' . $userid . ')"><i class="material-icons opacity-10 fs-5">delete</i></button>
+  </td>';
+   
+
+    $number++;
+  }
+  $table .= "</tr> </tbody></table>";
   echo $table;
 }
 ?>

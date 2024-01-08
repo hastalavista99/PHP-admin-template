@@ -47,7 +47,7 @@
               <tbody>
                 <?php
 
-                $sql = "SELECT units_sale.id AS unit_id, property_sale.name AS property_name, property_sale.id AS property_id, units_sale.name AS unit_name, units_sale.booked AS booked, units_sale.sold AS sold, units_sale.price, units_sale.commission, units_sale.deposit
+                $sql = "SELECT units_sale.id AS unit_id, property_sale.name AS property_name, property_sale.id AS property_id, units_sale.name AS unit_name, units_sale.booked AS booked, units_sale.sold AS sold, FORMAT(units_sale.price, 0) AS price, FORMAT(units_sale.commission, 0) AS commission, FORMAT(units_sale.deposit, 0) AS deposit
                           FROM units_sale
                           LEFT JOIN property_sale ON units_sale.property_sale_id = property_sale.id";
 
@@ -59,9 +59,9 @@
                     echo '<td scope="row" class="text-center">' . $row1["unit_id"] . '</td>';
                     echo ' <td class="text-center">' . $row1["property_name"] . '</td>';
                     echo '<td class="text-center">' . $row1["unit_name"] . '</td>';
-                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["commission"] . '</td>';
-                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["deposit"] . '</td>';
-                    echo '<td class="text-center"><span class="text-xs">KES</span> ' . $row1["price"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["commission"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["deposit"] . '</td>';
+                    echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["price"] . '</td>';
                     
 
                     if ($row1['booked'] === 'Yes' && $row1['sold'] === 'No') {

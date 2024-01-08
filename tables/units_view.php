@@ -48,7 +48,7 @@
                   <tbody>
                     <?php 
 
-                          $sql = "SELECT units_two.id AS unit_id, properties.name AS property_name, units_two.unit_name AS unit_name, units_two.unit_number AS unit_number, units_two.available AS available, units_two.reserved AS reserved, units_two.occupied AS occupied, billing_two.rent, billing_two.commission, billing_two.deposit
+                          $sql = "SELECT units_two.id AS unit_id, properties.name AS property_name, units_two.unit_name AS unit_name, units_two.unit_number AS unit_number, units_two.available AS available, units_two.reserved AS reserved, units_two.occupied AS occupied, FORMAT(billing_two.rent, 0) AS rent, FORMAT(billing_two.commission, 0) AS commission, FORMAT(billing_two.deposit, 0) AS deposit
                           FROM units_two
                           LEFT JOIN properties ON units_two.property_id = properties.id
                           LEFT JOIN billing_two ON units_two.id = billing_two.unit_id";
@@ -62,9 +62,9 @@
                             echo ' <td class="text-center">' . $row1["property_name"] . '</td>';
                             echo '<td class="text-center">' . $row1["unit_name"] . '</td>';
                             echo ' <td class="text-center">' . $row1["unit_number"] . '</td>';
-                            echo '<td class="text-center">' . $row1["commission"] . '</td>';
-                            echo '<td class="text-center">' . $row1["rent"] . '</td>';
-                            echo '<td class="text-center">' . $row1["deposit"] . '</td>';
+                            echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["commission"] . '</td>';
+                            echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["rent"] . '</td>';
+                            echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["deposit"] . '</td>';
                             echo ' <td class="text-center">' . $row1["available"] . '</td>';
                             echo '<td class="text-center">' . $row1["reserved"] . '</td>';
                             echo ' <td class="text-center">' . $row1["occupied"] . '</td>';

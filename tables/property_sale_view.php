@@ -245,7 +245,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="inputEmail" class="form-label">Image</label>
+                        <label for="inputEmail" class="form-label">Image <span class="fst-italic text text-xs">(.pdf, .png, .jpg)</span></label>
                         <input type="file" class="form-control ps-2" id="inputEmail" name="sale_image" autocomplete="off">
                     </div>
                    

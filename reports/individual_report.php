@@ -54,21 +54,32 @@
                             <tbody>
                                 <?php
 
-                                $sql = "SELECT id, name AS property_name, location, active_status, number_of_units, occupied_units, vacant_units FROM properties WHERE properties.landlord_id = $land_id";
+                                $sql = "SELECT id, name AS property_name, location, active_status FROM properties WHERE properties.landlord_id = $land_id";
                                 $result = mysqli_query($con, $sql);
                                 if ($result) {
+                                    $number = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        $id = $row['id'];
+                                        $propid = $row['id'];
+
+                                        $sql2 = "SELECT COUNT(available) AS vacant_units FROM units_two WHERE property_id = $propid AND available = 'Yes'";
+                                        $result2 = mysqli_query($con, $sql2);
+                                        $row2 = mysqli_fetch_assoc($result2);
+                                        $sql3 = "SELECT COUNT(occupied) AS occupied_units FROM units_two WHERE property_id = $propid AND occupied = 'Yes'";
+                                        $result3 = mysqli_query($con, $sql3);
+                                        $row3 = mysqli_fetch_assoc($result3);
+                                        $sql4 = "SELECT COUNT(id) AS number_of_units FROM units_two WHERE property_id = $propid";
+                                        $result4 = mysqli_query($con, $sql4);
+                                        $row4 = mysqli_fetch_assoc($result4);
                                         $name = $row['property_name'];
                                         $location = $row['location'];
                                         $active_status = $row['active_status'];
-                                        $no_of_units = $row['number_of_units'];
-                                        $occupied_units = $row['occupied_units'];
-                                        $vacant_units = $row['vacant_units'];
+                                        $no_of_units = $row4['number_of_units'];
+                                        $occupied_units = $row3['occupied_units'];
+                                        $vacant_units = $row2['vacant_units'];
 
 
                                         echo '<tr>
-                                        <td scope="row" class="text-center">' . $id . '</td>
+                                        <td scope="row" class="text-center">' . $number . '</td>
                                 <td class="text-center">' . $name . '</td>
                                 <td class="text-center">' . $location . '</td>
                                 <td class="text-center">' . $active_status . '</td>
@@ -77,6 +88,7 @@
                                 <td class="text-center">' . $vacant_units . '</td>
                                
                               </tr>';
+                              $number++;
                                     }
 
                                     if ($result->num_rows == 0){

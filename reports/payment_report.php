@@ -52,7 +52,7 @@
                                     property_sale.name AS property_name,
                                     units_sale.name AS unit_name,
                                     landlords.name AS landlord_name,
-                                    payment.amount,
+                                    FORMAT(payment.amount, 0) AS amount,
                                     payment.type_payment,
                                     payment.date
                                 FROM
@@ -98,7 +98,7 @@
                                 <td class="text-center">' . $property_name . '</td>
                                 <td class="text-center">' . $unit_name . '</td>
                                 <td class="text-center">' . $landlord_name . '</td>
-                                <td class="text-center"><span class="text-xs">KES</span> ' . $amount . '</td>
+                                <td class="text-center"><span class="text-xxs">KES</span> ' . $amount . '</td>
                                 <td class="text-center">' . $payment_type . '</td>
                                 <td class="text-center">' . $date . '</td>
                                 

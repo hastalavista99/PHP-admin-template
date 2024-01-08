@@ -32,4 +32,19 @@ if(isset($_POST['name']) && isset($_POST['location']) && isset($_POST['type'])&&
     
 }
 
+// insert users
+if(isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['userRole'])&& isset($_POST['userPassword'])) {
+    $sql = "INSERT INTO users (role, user_name, user_email, user_password) VALUES('$userRole', '$userName', '$userEmail', '$userPassword'";
+
+    $result = mysqli_query($con, $sql);
+
+    if(!$result){
+        die(mysqli_error($con));
+    }
+
+    
+} else {
+    die(mysqli_error($con));
+}
+
 ?>

@@ -44,13 +44,13 @@
                                 <?php
 
                                 $sql = "SELECT
+                                properties.id,
                                 properties.name AS property_name,
                                 properties.location AS property_location,
                                 landlords.name AS landlord_name,
-                                properties.number_of_units,
                                 COUNT(units_two.id) AS total_units,
                                 SUM(units_two.occupied = 'Yes') AS occupied_units,
-                                SUM(billing_two.rent) AS total_rent
+                                FORMAT(SUM(billing_two.rent), 0) AS total_rent
                             FROM
                                 units_two
                             LEFT JOIN
@@ -65,11 +65,16 @@
                                 properties.id";
                                 $result = mysqli_query($con, $sql);
                                 if ($result) {
+                                    
                                     while ($row = mysqli_fetch_assoc($result)) {
+                                        $propid=$row['id'];
+                                        $sql2 = "SELECT COUNT(id) AS number_of_units FROM units_two WHERE property_id = $propid";
+                                        $result2 = mysqli_query($con, $sql2);
+                                        $row2 = mysqli_fetch_assoc($result2);
                                         $property_name = $row['property_name'];
                                         $location = $row['property_location'];
                                         $landlord = $row['landlord_name'];
-                                        $no_of_units = $row['number_of_units'];
+                                        $no_of_units = $row2['number_of_units'];
                                         $occupied = $row['occupied_units'];
                                         $rent = $row['total_rent'];
 
