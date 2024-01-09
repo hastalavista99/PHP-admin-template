@@ -18,14 +18,14 @@
                             </a>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="row d-flex justify-content-between align-items-center ms-2 me-2">
                         <div class="col-sm-12 col-md-6 mt-1">
-                           
+
                         </div>
-                        
+
                     </div>
                     <div class="table-responsive p-0">
                         <table class="table table-striped table-hover align-items-center mb-0" id="paymentReport">
@@ -39,7 +39,7 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">amount</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid via</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,20 +68,20 @@
 
                                 $result = mysqli_query($con, $sql);
 
-                               
+
                                 if ($result) {
-                                    
+
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $id = $row['sell_id'];
-                                         $sql1 = "SELECT
+                                        $sql1 = "SELECT
                                 LPAD(id, 4, '0') AS receipt_number
                                 FROM
                                     payment
                                 WHERE
                                     buyer_id = $id";
-                                $result1 = $con->query($sql1);
-                                $row1 = $result1->fetch_assoc();
-                                        
+                                        $result1 = mysqli_query($con, $sql1);
+                                        $row1 = $result1->fetch_assoc();
+
                                         $receipt = $row1['receipt_number'];
                                         $buyer = $row['buyer_name'];
                                         $property_name = $row['property_name'];

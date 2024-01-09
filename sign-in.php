@@ -38,6 +38,7 @@ if (isset($_POST['sign_in'])) {
             $role = $row['role'];
             session_start();
             $_SESSION['username'] = $name;
+            $_SESSION['role'] = $role;
             if (isset($_POST['remember'])) {
               $remember = $_POST['remember'];
               setcookie("remember_name", $name, time() + 3600*24*365); //cookie for the name
@@ -47,7 +48,7 @@ if (isset($_POST['sign_in'])) {
               setcookie("remember", "", time() - 36000);
             }
             
-            header('location: index.php?role='.$row['role'].'');
+            header('location: index/role/'.$row['role'].'');
              
         } else {
             $invalid = 1;
@@ -119,7 +120,7 @@ if (isset($_POST['sign_in'])) {
                     <input type="password" name="password" class="form-control ps-2" placeholder="Password" required>
                   </div>
                   <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember"<?php if(!empty($remember)){ ?>checked <?php } elseif(isset($_COOKIE["remember"])) { ?> checked <?php } ?>>
+                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember"<?php if(!empty($remember)){ ?>checked <?php } elseif(isset($_COOKIE["remember"])) { ?>  <?php } ?>>
                     <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
                   </div>
                   <div class="text-center">

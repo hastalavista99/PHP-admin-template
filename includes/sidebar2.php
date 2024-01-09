@@ -10,18 +10,25 @@
             <div class="d-flex align-items-center justify-content-start w-50">
               <?php
       $username = $_SESSION['username'];
+      $role = $_SESSION['role'];
       echo '<a class="m-0 text-start text-white" href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
-      <span class=" font-weight-bold text-white text-capitalize h4">'. $username .'</span>
+      <span class=" font-weight-bold text-white text-capitalize h4">'. $username .' </span>
   </a>'; 
+  
       ?>  
             </div>
       
     </div>
     <hr class="horizontal light mt-0 mb-2">
+    
+
+    
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
+        <?php 
+    if($role === 'admin'){ ?>
         <li class="nav-item">
-          <a class="nav-link text-white " href="index.php">
+          <a class="nav-link text-white " href="../../index">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -29,23 +36,27 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/landlords_view.php">
+          <a class="nav-link text-white " href="../../tables/landlords_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
             <span class="nav-link-text ms-1">Landlords</span>
           </a>
-        </li>
+        </li><?php
+    }
+    ?>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/tenants_view.php">
+          <a class="nav-link text-white " href="../../tables/tenants_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">groups</i>
             </div>
             <span class="nav-link-text ms-1">Tenants</span>
           </a>
         </li>
+        <?php 
+    if($role === 'admin'){ ?>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/property_view.php">
+          <a class="nav-link text-white " href="../../tables/property_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">other_houses</i>
             </div>
@@ -54,7 +65,7 @@
         </li>
         
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/units_view.php">
+          <a class="nav-link text-white " href="../../tables/units_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">home_work</i>
             </div>
@@ -62,22 +73,24 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/property_sale_view.php">
+          <a class="nav-link text-white " href="../../tables/property_sale_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">landscape</i>
             </div>
             <span class="nav-link-text ms-1">Properties For Sale</span>
           </a>
-        </li>
+        </li><?php
+    }
+    ?>
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/units_sale_view.php">
+          <a class="nav-link text-white " href="../../tables/units_sale_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">forest</i>
             </div>
             <span class="nav-link-text ms-1">Units for Sale</span>
           </a>
         </li>
-        <li class="nav-item mt-2">
+        <!-- <li class="nav-item mt-2">
         <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#lease-collapse" aria-expanded="false">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">apartment</i>
@@ -90,7 +103,7 @@
             <li><a href="forms/lease_info.php" class="light-link text-white drop ms-6">Edit Leasing Info</a></li>
           </ul>
         </div>
-        </li>
+        </li> -->
         <!-- <li class="nav-item mt-2">
         <a class="nav-link btn-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="false">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -106,7 +119,7 @@
         </div>
         </li> -->
         <li class="nav-item mt-2">
-          <a class="nav-link text-white " href="tables/invoice_view.php">
+          <a class="nav-link text-white " href="../../tables/invoice_view">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
@@ -114,16 +127,28 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-        <a class="nav-link" href="reports/reports_view.php">
+        <a class="nav-link" href="../../reports/reports_view">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">summarize</i>
           </div>
           <span class="nav-link-text ms-1">Reports</span>
         </a>
         </li>
+        <?php if($role === 'admin'){ ?>
+        <li class="nav-item mt-2">
+        <a class="nav-link" href="../../tables/users">
+          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">settings</i>
+          </div>
+          <span class="nav-link-text ms-1">Settings</span>
+        </a>
+        </li>
+        <?php
+    }
+    ?>
         
         <li class="nav-item">
-          <a class="nav-link text-white " href="sign-out.php">
+          <a class="nav-link text-white " href="../../sign-out">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">logout</i>
             </div>

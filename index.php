@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-  header('location: sign-in.php');
+  header('location: sign-in');
 }
 
 ?>
@@ -26,9 +26,9 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
-  <link rel="stylesheet" type="text/css" href="assets/css/material-dashboard.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css"/>
-  
+  <link rel="stylesheet" type="text/css" href="../../assets/css/material-dashboard.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css" />
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -51,7 +51,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                   </div>
                 </div>
-
+                
                 <div class="row">
                   <div class="col-lg-3 col-sm-5">
                     <div class="card  mb-2">

@@ -1,3 +1,53 @@
+<?php
+include '../config/connect.php';
+
+// HANDLE NEW USERS
+
+$user = 0;
+
+if (isset($_POST['sign_up'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['userRole']; // Assuming 'userRole' is the name of your HTML form field
+
+    // Use prepared statement to prevent SQL injection
+    $stmt = $con->prepare("SELECT * FROM users WHERE user_name = ?");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result) {
+        $num = $result->num_rows;
+
+        if ($num > 0) {
+            // echo 'Username already exists';
+            $user = 1;
+        } else {
+            // Use prepared statement to prevent SQL injection
+            $stmt = $con->prepare("INSERT INTO users (role, user_name, user_email, user_password) VALUES (?, ?, ?, ?)");
+
+            // Hash the password
+            // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $stmt->bind_param("ssss", $role, $name, $email, $password);
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                $id = $stmt->insert_id;
+                header("location: users.php");
+                exit(); // Ensure that the script stops executing after redirect
+            } else {
+                die($stmt->error);
+            }
+        }
+
+        $stmt->close();
+    }
+}
+?>
+
+
 <?php include '../includes/header.php'; ?>
 <?php include '../config/connect.php'; ?>
 <!-- End Navbar -->
@@ -126,40 +176,38 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-
-                    <div class="form-group col-md-12">
-                        <label for="userName" class="form-label">Username:</label>
-                        <input type="text" class="form-control ps-2" id="userName" name="name" autocomplete="off">
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="userEmail" class="form-label">Email:</label>
-                            <input type="email" class="form-control ps-2" id="userEmail" name="email" autocomplete="off">
-                        </div>
-
-
-                        <div class="form-group col-md-6">
-                            <label for="userPassword" class="form-label">Password:</label>
-                            <input type="password" class="form-control ps-2" id="userPassword" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="userRole" class="form-label">Property Type</label>
-                        <select id="userRole" name="userRole" class="form-select ps-2">
-                            <option value="" selected>-- Select Role --</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                            <!-- <option value="secretary">Secretary-</option> -->
-                        </select>
-                    </div>
-                    <div class="col-12 my-3">
-                        <button type="button" name="user" class="btn btn-primary" onclick="addUser()">Create</button>
+                <form method="post">
+                <div class="form-group col-md-12">
+                    <label for="userName" class="form-label">Username:</label>
+                    <input type="text" class="form-control ps-2" id="userName" name="name" autocomplete="off">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="userEmail" class="form-label">Email:</label>
+                        <input type="email" class="form-control ps-2" id="userEmail" name="email" autocomplete="off">
                     </div>
 
 
+                    <div class="form-group col-md-6">
+                        <label for="userPassword" class="form-label">Password:</label>
+                        <input type="password" class="form-control ps-2" id="userPassword" name="password" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="userRole" class="form-label">Property Type</label>
+                    <select id="userRole" name="userRole" class="form-select ps-2">
+                        <option value="" selected>-- Select Role --</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <!-- <option value="staff">Staff</option>
+                        <option value="tenant">Tenant</option> -->
+                    </select>
+                </div>
+                <div class="col-12 my-3">
+                    <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
+                </div>
+                </form>
             </div>
-
-
         </div>
     </div>
 </div>

@@ -61,6 +61,7 @@
                                 WHERE
                                     tenants_two.tenant_status = 'assigned'";
                                 $result = mysqli_query($con, $sql);
+                                $number = 1;
                                 if ($result) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $id = $row['id'];
@@ -72,7 +73,7 @@
 
 
                                         echo '<tr>
-                                <td scope="row" class="text-center">' . $id . '</td>
+                                <td scope="row" class="text-center">' . $number . '</td>
                                 <td class="text-center text-capitalize">' . $tenant_name . '</td>
                                 <td class="text-center">' . $property_name . '</td>
                                 <td class="text-center">' . $unit_number . '</td>
@@ -80,6 +81,7 @@
                                 <td class="text-center">' . $contract . '</td>
                                 
                               </tr>';
+                              $number++;
                                     }
                                 }
 

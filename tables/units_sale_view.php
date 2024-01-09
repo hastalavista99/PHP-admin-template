@@ -11,11 +11,15 @@
               <h4 class="row text-capitalize ps-3">Units For Sale</h4>
             </div>
           </div>
+          <?php if($role === 'admin') { ?>
+            
           <div class="col-md-2 pt-3">
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUnitSaleModal">
                 Add Units
               </button>
           </div>
+          <?php
+          } ?>
           <div class="col-md-2 pt-3">
               <a class="btn btn-primary" href="buyers_view.php">
                 Invoiced buyers

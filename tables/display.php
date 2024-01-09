@@ -258,7 +258,7 @@ if (isset($_POST['displayUser'])) {
       <td class="text-center">
   <button class="btn btn-link text-danger btn-sm my-0" onclick="deleteUser(' . $userid . ')"><i class="material-icons opacity-10 fs-5">delete</i></button>
   </td>';
-   
+
 
     $number++;
   }
@@ -312,4 +312,13 @@ if (isset($_POST['displayUser'])) {
 
   proptable.buttons().container()
     .appendTo('#propertyView_wrapper .col-md-6:eq(0)');
+
+  var usertable = $('#userView').DataTable({
+    lengthChange: false,
+    "pageLength": 50,
+    buttons: ['copy', 'excel', 'pdf', 'colvis']
+  });
+
+  usertable.buttons().container()
+    .appendTo('#userView_wrapper .col-md-6:eq(0)');
 </script>
