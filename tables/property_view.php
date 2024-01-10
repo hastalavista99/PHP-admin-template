@@ -211,19 +211,114 @@
     </div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Update Property Modal -->
+<div class="modal" id="updatePropertyModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 150%">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Property</h5>
+        <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row g-3 my-1">
+          <input type="hidden" id="propertyId" name="propertyId" value="">
+          <div class="col-md-6">
+            <label for="propertyName" class="form-label">Name</label>
+            <input type="text" class="form-control ps-2" id="updatePropertyName" name="name" autocomplete="off">
+          </div>
+          <div class="col-md-6">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control ps-2" id="updatePropertyLocation" name="location" autocomplete="off">
+          </div>
+          <div class="col-md-4">
+            <label for="propertyType" class="form-label">Property Type</label>
+            <select id="updatePropertyType" name="typeSelect" class="form-select ps-2">
+              <option value="" selected>-- Select Type --</option>
+              <?php
+              // Fetch property types from the database and populate the dropdown
+
+
+              $conn = new mysqli('localhost', 'jack', '.kJgIRNMbIEKKi](', 'property');
+
+              if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+              }
+
+              $sql = "SELECT id, name FROM property_types";
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+                }
+              } else {
+                echo "<option value='' disabled>No types found</option>";
+              }
+
+              $conn->close();
+              ?>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="landlord" class="form-label">Landlord</label>
+            <select id="updatePropertyLandlord" name="landlordSelect" class="form-select ps-2">
+              <option value="" selected>-- Select Landlord --</option>
+              <?php
+              // Fetch landlords from the database and populate the dropdown
+
+
+              $conn = new mysqli('localhost', 'jack', '.kJgIRNMbIEKKi](', 'property');
+
+              if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+              }
+
+              $sql = "SELECT id, name FROM landlords";
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+                }
+              } else {
+                echo "<option value='' disabled>No landlords found</option>";
+              }
+
+              $conn->close();
+              ?>
+            </select>
+          </div>
+          <div class="col-md-4 mt-5">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="updactiveCheck" name="propertyStatus" value="active">
+              <label class="form-check-label" for="activeCheck">
+                active
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="button" name="property" class="btn btn-primary" onclick="addProperty()">Create</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<?php include '../includes/js_links.php' ?>
 <script>
-$(document).ready(function() {
-    console.log("Document is ready.");
+  $(document).ready(function() {
+    // console.log("Document is ready.");
     displayPropertyData();
-    const updatePropertyModal = new bootstrap.Modal('#updatePropertyModal');
-  const propertyModal = new bootstrap.Modal('#propertyModal');
+
   });
-  
-
-  
-
 
 
   // display function
@@ -242,7 +337,7 @@ $(document).ready(function() {
     });
 
   }
-
+ const propertyModal = new bootstrap.modal('#propertyModal');
   function addProperty() {
     var name = $('#propertyName').val();
     var location = $('#location').val();
@@ -264,6 +359,7 @@ $(document).ready(function() {
       success: function(data, status) {
         // function to display data
         // console.log(status);
+       
         propertyModal.hide();
         displayPropertyData();
       }
@@ -284,6 +380,44 @@ $(document).ready(function() {
     });
   }
 
+  // update function to get details from the database
+  function getTenantDetails(updateid) {
+    $('#hiddenTenantData').val(updateid);
+
+
+    $.post("update.php", {
+      updateTenantid: updateid
+    }, function(data, status) {
+      var userid = JSON.parse(data);
+      $('#updateTenantName').val(userid.name);
+      $('#updateTenantEmail').val(userid.email);
+      $('#updateTenantPhone').val(userid.phone_number);
+      $('#updateTenantId').val(userid.id_number);
+    });
+    updateTenantModal.show();
+
+
+
+  }
+  // update 
+  function updatePropertyDetails() {
+    var updatename = $('#updatePropertyName').val();
+    var updateemail = $('#updatePropertyEmail').val();
+    var updatemobile = $('#updatePropertyPhone').val();
+    var updateId = $('#updatePropertyId').val();
+    var hiddenpropertydata = $('#hiddenPropertyData').val();
+
+    $.post("update.php", {
+      updatepropertyname: updatename,
+      updatepropertyemail: updateemail,
+      updatepropertymobile: updatemobile,
+      updateId: updateId,
+      hiddenpropertydata: hiddenpropertydata
+    }, function(data, status) {
+      updatePropertyModal.hide();
+      displayPropertyData();
+    });
+  }
 </script>
 
 <script>

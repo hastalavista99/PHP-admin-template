@@ -61,6 +61,18 @@ if (isset($_POST['sign_up'])) {
                             <h4 class="row text-capitalize ps-3">Users</h4>
                         </div>
                     </div>
+                    <?php if($role === 'super') {
+                        ?>
+                        
+                    <div class="col-md-2 pt-3">
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userSettingsModal">
+                                User Settings
+                            </button>
+                        </div>
+                    </div>
+                    <?php
+                    } ?>
                     <div class="col-md-2 pt-3">
                         <div>
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">
@@ -177,80 +189,116 @@ if (isset($_POST['sign_up'])) {
             <!-- Modal Body -->
             <div class="modal-body">
                 <form method="post">
-                <div class="form-group col-md-12">
-                    <label for="userName" class="form-label">Username:</label>
-                    <input type="text" class="form-control ps-2" id="userName" name="name" autocomplete="off">
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="userEmail" class="form-label">Email:</label>
-                        <input type="email" class="form-control ps-2" id="userEmail" name="email" autocomplete="off">
+                    <div class="form-group col-md-12">
+                        <label for="userName" class="form-label">Username:</label>
+                        <input type="text" class="form-control ps-2" id="userName" name="name" autocomplete="off">
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="userEmail" class="form-label">Email:</label>
+                            <input type="email" class="form-control ps-2" id="userEmail" name="email" autocomplete="off">
+                        </div>
 
 
-                    <div class="form-group col-md-6">
-                        <label for="userPassword" class="form-label">Password:</label>
-                        <input type="password" class="form-control ps-2" id="userPassword" name="password" autocomplete="off">
+                        <div class="form-group col-md-6">
+                            <label for="userPassword" class="form-label">Password:</label>
+                            <input type="password" class="form-control ps-2" id="userPassword" name="password" autocomplete="off">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="userRole" class="form-label">Property Type</label>
-                    <select id="userRole" name="userRole" class="form-select ps-2">
-                        <option value="" selected>-- Select Role --</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                        <!-- <option value="staff">Staff</option>
+                    <div class="col-md-4">
+                        <label for="userRole" class="form-label">Property Type</label>
+                        <select id="userRole" name="userRole" class="form-select ps-2">
+                            <option value="" selected>-- Select Role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            <!-- <option value="staff">Staff</option>
                         <option value="tenant">Tenant</option> -->
-                    </select>
-                </div>
-                <div class="col-12 my-3">
-                    <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
-                </div>
+                        </select>
+                    </div>
+                    <div class="col-12 my-3">
+                        <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Update Landlords modal -->
-<div class="modal" id="updateLandlordModal">
+
+<!-- User Settings Modal -->
+<div class="modal" id="userSettingsModal">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 150%">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">Update Landlord</h5>
+                <h5 class="modal-title">User Role Settings</h5>
                 <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <div class="col-md-12">
-                    <label for="updateLandlordName" class="form-label">Name:</label>
-                    <input type="text" class="form-control ps-2" id="updateLandlordName" name="name" autocomplete="off">
-                </div>
+                <form method="post">
+                    <div class="form-group col-md-12">
+                        <label for="userName" class="form-label">New Role:</label>
+                        <input type="text" class="form-control ps-2" id="userRole" name="name" autocomplete="off">
+                    </div>
+                    <div class="row my-2">
+                        <p class="h4 fst-bold">What to access:</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                landlords
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                tenants
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                properties
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                settings
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                properties for sale
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                reports
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
+                            <label class="form-check-label" for="activeCheck">
+                                tenants
+                            </label>
+                        </div>
+                    </div>
 
-                <div class="col-md-6">
-                    <label for="updateLandlordEmail" class="form-label">Email:</label>
-                    <input type="email" class="form-control ps-2" id="updateLandlordEmail" name="email" autocomplete="off">
-                </div>
-                <div class="col-md-6">
-                    <label for="updateLandlordPhone" class="form-label">Phone Number:</label>
-                    <input type="text" class="form-control ps-2" id="updateLandlordPhone" name="phone_number" autocomplete="off">
-                </div>
-
-                <div class="col-12 my-3">
-                    <button type="button" name="update_landlord" class="btn btn-primary" onclick="updateDetails()">Update</button>
-                    <input type="hidden" id="hiddenLandlordData">
-                </div>
-
+                    <div class="col-12 my-3">
+                        <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
             </div>
-
-
-
         </div>
     </div>
 </div>
+
+
 
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
