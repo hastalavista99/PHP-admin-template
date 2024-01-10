@@ -148,7 +148,7 @@ if (!isset($_SESSION['username'])) {
                                     <td class="w-30">
                                       <div class="d-flex px-2 py-1 align-items-center">
                                         <div>
-                                          <img src="./assets/img/icons/flags/US.png" alt="Country flag">
+                                          <img src="../../assets/img/icons/flags/US.png" alt="Country flag">
                                         </div>
                                         <div class="ms-4">
                                           <p class="text-xs font-weight-bold mb-0 ">Country:</p>
@@ -180,7 +180,7 @@ if (!isset($_SESSION['username'])) {
                                     <td class="w-30">
                                       <div class="d-flex px-2 py-1 align-items-center">
                                         <div>
-                                          <img src="./assets/img/icons/flags/DE.png" alt="Country flag">
+                                          <img src="../../assets/img/icons/flags/DE.png" alt="Country flag">
                                         </div>
                                         <div class="ms-4">
                                           <p class="text-xs font-weight-bold mb-0 ">Country:</p>
@@ -212,7 +212,7 @@ if (!isset($_SESSION['username'])) {
                                     <td class="w-30">
                                       <div class="d-flex px-2 py-1 align-items-center">
                                         <div>
-                                          <img src="./assets/img/icons/flags/GB.png" alt="Country flag">
+                                          <img src="../../assets/img/icons/flags/GB.png" alt="Country flag">
                                         </div>
                                         <div class="ms-4">
                                           <p class="text-xs font-weight-bold mb-0 ">Country:</p>
@@ -244,7 +244,7 @@ if (!isset($_SESSION['username'])) {
                                     <td class="w-30">
                                       <div class="d-flex px-2 py-1 align-items-center">
                                         <div>
-                                          <img src="./assets/img/icons/flags/BR.png" alt="Country flag">
+                                          <img src="../../assets/img/icons/flags/BR.png" alt="Country flag">
                                         </div>
                                         <div class="ms-4">
                                           <p class="text-xs font-weight-bold mb-0 ">Country:</p>

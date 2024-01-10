@@ -25,16 +25,16 @@
                     
                     
                     <ul class="list-group list-group-horizontal-xxl my-2" style="list-style: none;">
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="landlord_report.php" >
+                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="landlord_report" >
                                 landlords
                             </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="rent_report.php">
+                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="rent_report">
                                 expected rent
                             </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="tenant_report.php">
+                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="tenant_report">
                                 tenants
                             </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report.php">
+                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report">
                                 payments made
                             </a></li>
                     </ul>
@@ -115,7 +115,7 @@
                 <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
                     <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+                <a href="https://www.facebook.com/sharer/sharer?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
                     <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
                 </a>
             </div>

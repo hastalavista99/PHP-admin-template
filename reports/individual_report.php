@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-2 pt-3">
                         <div>
-                            <a class="btn btn-primary" href="landlord_report.php">
+                            <a class="btn btn-primary" href="landlord_report">
                                 back
                             </a>
                         </div>

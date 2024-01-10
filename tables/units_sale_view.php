@@ -21,7 +21,7 @@
           <?php
           } ?>
           <div class="col-md-2 pt-3">
-              <a class="btn btn-primary" href="buyers_view.php">
+              <a class="btn btn-primary" href="buyers_view">
                 Invoiced buyers
               </a>
           </div>

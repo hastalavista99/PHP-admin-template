@@ -208,11 +208,6 @@
 
       </div>
 
-      <!-- Modal Footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div> -->
-
     </div>
   </div>
 </div>
@@ -222,9 +217,11 @@
 $(document).ready(function() {
     console.log("Document is ready.");
     displayPropertyData();
-  });
-  const updatePropertyModal = new bootstrap.Modal('#updatePropertyModal');
+    const updatePropertyModal = new bootstrap.Modal('#updatePropertyModal');
   const propertyModal = new bootstrap.Modal('#propertyModal');
+  });
+  
+
   
 
 
@@ -240,7 +237,7 @@ $(document).ready(function() {
       },
       success: function(data, status) {
         $('#propertyViewTable').html(data);
-        console.log(data);
+
       }
     });
 

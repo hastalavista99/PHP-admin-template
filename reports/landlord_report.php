@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-2 pt-3">
                         <div>
-                            <a class="btn btn-primary" href="reports_view.php">
+                            <a class="btn btn-primary" href="reports_view">
                                 back
                             </a>
                         </div>

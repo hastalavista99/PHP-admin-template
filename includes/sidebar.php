@@ -122,7 +122,8 @@
           </a>
         </li>
         <li class="nav-item mt-2">
-        <a class="nav-link" href="../reports/reports_view.php">
+        <a class="nav-link" href="../reports/reports_view
+        ">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">summarize</i>
           </div>

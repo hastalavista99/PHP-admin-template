@@ -13,7 +13,7 @@
           </div>
           <div class="col-md-2 pt-3">
             <div>
-              <a class="btn btn-success" href="units_sale_view.php">
+              <a class="btn btn-success" href="units_sale_view">
                 Back to units
               </a>
             </div>
