@@ -265,6 +265,51 @@ if (isset($_POST['displayUser'])) {
   $table .= "</tr> </tbody></table>";
   echo $table;
 }
+
+
+// DISPLAYING ACCOUNTS
+if (isset($_POST['displayAccount'])) {
+  $table = '<table class="table table-hover align-items-center mb-0" id="accountView">
+  <thead>
+    <tr>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">account no</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">description</th>
+    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">type</th>
+
+    </tr>
+  </thead>
+  <tbody>';
+
+  // $sql = "SELECT * FROM landlords";
+  $sql = "SELECT
+  *
+  FROM 
+  chart_of_accounts ";
+  $result = mysqli_query($con, $sql);
+  $number = 1;
+
+  while ($row = mysqli_fetch_assoc($result)) {
+
+    $accountid = $row['id'];
+    $account_no = $row['account_no'];
+    $description = $row['description'];
+    $type = $row['type'];
+
+    $table .= '
+      <tr>
+      <td scope="row" class="text-center">' . $number . '</td>
+      <td class="text-center">' . $account_no . '</td>
+      <td class="text-center">' . $description . '</td>
+      <td class="text-center text-capitalize">' . $type . '</td>
+  </tr>';
+
+
+    $number++;
+  }
+  $table .= " </tbody></table>";
+  echo $table;
+}
 ?>
 
 <!-- Include jQuery and DataTables scripts -->
@@ -321,4 +366,13 @@ if (isset($_POST['displayUser'])) {
 
   usertable.buttons().container()
     .appendTo('#userView_wrapper .col-md-6:eq(0)');
+
+    var accounttable = $('#accountView').DataTable({
+    lengthChange: false,
+    "pageLength": 50,
+    buttons: ['copy', 'excel', 'pdf', 'colvis']
+  });
+
+  accounttable.buttons().container()
+    .appendTo('#accountView_wrapper .col-md-6:eq(0)');
 </script>

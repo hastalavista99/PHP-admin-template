@@ -58,7 +58,7 @@ if (isset($_POST['sign_up'])) {
                 <div class="d-flex justify-content-between">
                     <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
                         <div class="pt-1 pb-1">
-                            <h4 class="row text-capitalize ps-3">Users</h4>
+                            <h4 class="row text-capitalize ps-3">Accounts</h4>
                         </div>
                     </div>
                     <?php if ($role === 'super') {
@@ -66,20 +66,20 @@ if (isset($_POST['sign_up'])) {
 
                         <div class="col-md-2 pt-3">
                             <div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userSettingsModal">
-                                    User Settings
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal">
+                                    New Account
                                 </button>
                             </div>
                         </div>
                     <?php
                     } ?>
-                    <div class="col-md-2 pt-3">
+                    <!-- <div class="col-md-2 pt-3">
                         <div>
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">
                                 New User
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="row d-flex justify-content-between align-items-center ms-2 me-2">
@@ -89,7 +89,7 @@ if (isset($_POST['sign_up'])) {
                     </div>
 
                 </div>
-                <div id="userViewTable" class="table-responsive p-0">
+                <div id="accountViewTable" class="table-responsive p-0">
 
                 </div>
             </div>
@@ -175,49 +175,41 @@ if (isset($_POST['sign_up'])) {
     </div>
 </div>
 
-<!-- New User Modal -->
-<div class="modal" id="userModal">
+
+
+<!-- New Account Modal -->
+<div class="modal" id="accountModal">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 150%">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title">New User</h5>
+                <h5 class="modal-title">New Account</h5>
                 <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <form method="post">
+                <form>
                     <div class="form-group col-md-12">
-                        <label for="userName" class="form-label">Username:</label>
-                        <input type="text" class="form-control ps-2" id="userName" name="name" autocomplete="off">
+                        <label for="accountNumber" class="form-label">Account No.:</label>
+                        <input type="number" class="form-control ps-2" id="accountNumber" autocomplete="off">
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="userEmail" class="form-label">Email:</label>
-                            <input type="email" class="form-control ps-2" id="userEmail" name="email" autocomplete="off">
+                            <label for="accountDescription" class="form-label">Description:</label>
+                            <input type="text" class="form-control ps-2" id="accountDescription" autocomplete="off">
                         </div>
 
 
                         <div class="form-group col-md-6">
-                            <label for="userPassword" class="form-label">Password:</label>
-                            <input type="password" class="form-control ps-2" id="userPassword" name="password" autocomplete="off">
+                            <label for="accountType" class="form-label">Account Type:</label>
+                            <input type="text" class="form-control ps-2" id="accountType" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="userRole" class="form-label">Property Type</label>
-                        <select id="userRole" name="userRole" class="form-select ps-2">
-                            <option value="" selected>-- Select Role --</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                            <option value="tenant">Manager</option>
-                            <option value="staff">Staff</option>
-                            <option value="tenant">Tenant</option>
-                        </select>
-                    </div>
+                    
                     <div class="col-12 my-3">
-                        <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
+                        <button type="button" name="create_account" class="btn btn-primary" onclick="addAccount()">Create</button>
                     </div>
                 </form>
             </div>
@@ -226,8 +218,8 @@ if (isset($_POST['sign_up'])) {
 </div>
 
 
-<!-- User Settings Modal -->
-<div class="modal" id="userSettingsModal">
+<!-- Account Settings Modal -->
+<div class="modal" id="accountSettingsModal">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 150%">
 
@@ -291,7 +283,7 @@ if (isset($_POST['sign_up'])) {
                     </div>
 
                     <div class="col-12 my-3">
-                        <button type="submit" name="sign_up" class="btn btn-primary" onclick="addUserRole()">Create</button>
+                        <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
                     </div>
                 </form>
             </div>
@@ -304,127 +296,105 @@ if (isset($_POST['sign_up'])) {
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     $(document).ready(function() {
-        displayUserData();
+        displayAccountData();
     });
     // const updateModal = new bootstrap.Modal('#updateLandlordModal');
-    const userModal = new bootstrap.Modal('#userModal');
+    const accountModal = new bootstrap.Modal('#accountModal');
 
 
     // display function
-    function displayUserData() {
+    function displayAccountData() {
         var displayData = "true";
         $.ajax({
             url: "display.php",
             type: 'post',
             data: {
-                displayUser: displayData
+                displayAccount: displayData
             },
             success: function(data, status) {
-                $('#userViewTable').html(data);
+                $('#accountViewTable').html(data);
             }
         })
     }
 
-    function addUser() {
-        var name = $('#userName').val();
-        var email = $('#userEmail').val();
-        var role = $('#userRole').val();
-        var password = $('#userPassword').val();
-
+    function addAccount() {
+        var account_no = $('#accountNumber').val();
+        var account_description = $('#accountDescription').val();
+        var account_type = $('#accountType').val();
 
         $.ajax({
             url: "insert.php",
             type: 'post',
+            dataType: 'text',
             data: {
-                userName: name,
-                userEmail: email,
-                userRole: role,
-                userPassword: password
+                accountNumber: account_no,
+                accountDescription: account_description,
+                accountType: account_type
             },
             success: function(data, status) {
                 // function to display data
-                // console.log(status);
-                userModal.hide();
-                displayUserData();
-            }
-        })
-    }
-
-    function addUserRole() {
-        var name = $('#userName').val();
-        var email = $('#userEmail').val();
-        var role = $('#userRole').val();
-        var password = $('#userPassword').val();
-
-
-        $.ajax({
-            url: "insert.php",
-            type: 'post',
-            data: {
-                userName: name,
-                userEmail: email,
-                userRole: role,
-                userPassword: password
+                // console.log(account_no);
+                accountModal.hide();
+                displayAccountData();
             },
-            success: function(data, status) {
-                // function to display data
-                // console.log(status);
-                userModal.hide();
-                displayUserData();
-            }
+            error: function(xhr, status, error) {
+        console.error("AJAX Error: " + status, error);
+    }
         })
     }
+
 
     // delete record
-    function deleteLandlord(deleteid) {
-        $.ajax({
-            url: "delete.php",
-            type: 'post',
-            data: {
-                deleteLandlord: deleteid
-            },
-            success: function(data, status) {
-                displayData();
-            }
-        });
-    }
-    // update function to get details from the database
-    function getLandlordDetails(updateid) {
-        $('#hiddenLandlordData').val(updateid);
+    // function deleteLandlord(deleteid) {
+    //     $.ajax({
+    //         url: "delete.php",
+    //         type: 'post',
+    //         data: {
+    //             deleteLandlord: deleteid
+    //         },
+    //         success: function(data, status) {
+    //             displayData();
+    //         }
+    //     });
+    // }
+    // // update function to get details from the database
+    // function getLandlordDetails(updateid) {
+    //     $('#hiddenLandlordData').val(updateid);
 
 
-        $.post("update.php", {
-            updateid: updateid
-        }, function(data, status) {
-            var userid = JSON.parse(data);
-            $('#updateLandlordName').val(userid.name);
-            $('#updateLandlordEmail').val(userid.email);
-            $('#updateLandlordPhone').val(userid.phone_number);
-        });
-        updateModal.show();
+    //     $.post("update.php", {
+    //         updateid: updateid
+    //     }, function(data, status) {
+    //         var userid = JSON.parse(data);
+    //         $('#updateLandlordName').val(userid.name);
+    //         $('#updateLandlordEmail').val(userid.email);
+    //         $('#updateLandlordPhone').val(userid.phone_number);
+    //     });
+    //     updateModal.show();
 
 
 
-    }
-    // update 
-    function updateDetails() {
-        var updatename = $('#updateLandlordName').val();
-        var updateemail = $('#updateLandlordEmail').val();
-        var updatemobile = $('#updateLandlordPhone').val();
-        var hiddendata = $('#hiddenLandlordData').val();
+    // }
+    // // update 
+    // function updateDetails() {
+    //     var updatename = $('#updateLandlordName').val();
+    //     var updateemail = $('#updateLandlordEmail').val();
+    //     var updatemobile = $('#updateLandlordPhone').val();
+    //     var hiddendata = $('#hiddenLandlordData').val();
 
-        $.post("update.php", {
-            updatename: updatename,
-            updateemail: updateemail,
-            updatemobile: updatemobile,
-            hiddendata: hiddendata
-        }, function(data, status) {
-            updateModal.hide();
-            displayData();
-        });
-    }
+    //     $.post("update.php", {
+    //         updatename: updatename,
+    //         updateemail: updateemail,
+    //         updatemobile: updatemobile,
+    //         hiddendata: hiddendata
+    //     }, function(data, status) {
+    //         updateModal.hide();
+    //         displayData();
+    //     });
+    // }
 </script>
 
 
