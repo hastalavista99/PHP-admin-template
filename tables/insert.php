@@ -47,19 +47,22 @@ if(isset($_POST['userName']) && isset($_POST['userEmail']) && isset($_POST['user
     die(mysqli_error($con));
 }
 
-//  insert new account
+// insert new account
 if(isset($_POST['accountNumber']) && isset($_POST['accountDescription']) && isset($_POST['accountType'])) {
-    $sql = "INSERT INTO chart_of_accounts (account_no, description, type) VALUES('$accountNumber', '$accountDescription', '$accountType'";
+    $accountNumber = $_POST['accountNumber'];
+    $accountDescription = $_POST['accountDescription'];
+    $accountType = $_POST['accountType'];
+
+    $sql = "INSERT INTO chart_of_accounts (account_no, description, type) VALUES ('$accountNumber', '$accountDescription', '$accountType')";
 
     $result = mysqli_query($con, $sql);
 
     if(!$result){
         die(mysqli_error($con));
     }
-
-    
 } else {
-    die(mysqli_error($con));
+    die("Missing required POST parameters");
 }
+
 
 ?>

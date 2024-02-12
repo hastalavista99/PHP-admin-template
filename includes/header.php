@@ -18,6 +18,7 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['role'])) {
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <link rel="icon" type="image/png" href="../assets/img/icons/logo.png">
+  <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>

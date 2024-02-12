@@ -218,78 +218,7 @@ if (isset($_POST['sign_up'])) {
 </div>
 
 
-<!-- Account Settings Modal -->
-<div class="modal" id="accountSettingsModal">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width: 150%">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title">User Role Settings</h5>
-                <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <form method="post">
-                    <div class="form-group col-md-12">
-                        <label for="userName" class="form-label">New Role:</label>
-                        <input type="text" class="form-control ps-2" id="userRole" name="name" autocomplete="off">
-                    </div>
-                    <div class="row my-2">
-                        <p class="h4 fst-bold">What to access:</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                landlords
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                tenants
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                properties
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                settings
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                properties for sale
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                reports
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="activeCheck" name="propertyStatus" value="active">
-                            <label class="form-check-label" for="activeCheck">
-                                tenants
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-12 my-3">
-                        <button type="submit" name="sign_up" class="btn btn-primary">Create</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

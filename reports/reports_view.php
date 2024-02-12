@@ -24,7 +24,7 @@
                     </div>
                     
                     
-                    <ul class="list-group list-group-horizontal-xxl my-2" style="list-style: none;">
+                    <ul class="list-group list-group-xxl my-2" style="list-style: none;">
                         <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="landlord_report" >
                                 landlords
                             </a></li>

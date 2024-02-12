@@ -27,7 +27,7 @@
                 </div>
               </div>
               <div class="table-responsive p-0">
-                <table class="table table-striped table-hover align-items-center mb-0 don" id="unitsView">
+                <table class="table table-hover align-items-center mb-0 don" id="unitsView">
                   <thead>
                     <tr>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
@@ -54,11 +54,13 @@
                           LEFT JOIN billing_two ON units_two.id = billing_two.unit_id";
                           
                           $result = $con->query($sql);
+                          
+                          $number = 1;
 
                           if ($result->num_rows >0) {
                           while ($row1 = $result->fetch_assoc()) {
                             echo '<tr>';
-                            echo '<td scope="row" class="text-center">' . $row1["unit_id"] . '</td>';
+                            echo '<td scope="row" class="text-center">' . $number . '</td>';
                             echo ' <td class="text-center">' . $row1["property_name"] . '</td>';
                             echo '<td class="text-center">' . $row1["unit_name"] . '</td>';
                             echo ' <td class="text-center">' . $row1["unit_number"] . '</td>';
@@ -72,7 +74,9 @@
                             echo '<td class="text-center"><button class="btn btn-success btn-sm my-2 me-2"><a name="bill_id" href="../forms/bill_units.php?bill_id='.$row1["unit_id"].'">Bills</a></button>
                                   <a style="color: red;"  name="delete_unit_id" href="../config/dbcon.php?delete_unit_id=' . $row1["unit_id"] . '"><i class="material-icons opacity-10">delete</i></a></td>';
                                   echo '</tr>';
+                                  $number++;
                           }
+                          
 
                          
                           } else {

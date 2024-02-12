@@ -31,7 +31,7 @@
                         <table class="table table-striped table-hover align-items-center mb-0" id="tenantReport">
                             <thead>
                                 <tr>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tenant id</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Property</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit</th>

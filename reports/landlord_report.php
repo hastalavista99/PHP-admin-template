@@ -30,7 +30,7 @@
                         <table class="table table-striped table-hover align-items-center mb-0" id="landlordTable">
                             <thead>
                                 <tr>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">landlord id</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone No</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">email</th>
@@ -43,6 +43,7 @@
 
                                 $sql = "SELECT landlords.id AS id, landlords.name AS name, landlords.phone_number AS phone_number, landlords.email AS email, COUNT(properties.id) AS number_of_properties FROM landlords LEFT JOIN properties ON landlords.id = properties.landlord_id GROUP BY landlords.id, landlords.name, landlords.phone_number, landlords.email";
                                 $result = mysqli_query($con, $sql);
+                                $number = 1;
                                 if ($result) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $id = $row['id'];
@@ -53,13 +54,14 @@
 
 
                                         echo '<tr>
-                                <td scope="row" class="text-center">' . $id . '</td>
+                                <td scope="row" class="text-center">' . $number . '</td>
                                 <td class="text-center text-uppercase"><a href="individual_report.php?land_id=' . $id . '">' . $name . '</a></td>
                                 <td class="text-center">' . $phone_number . '</td>
                                 <td class="text-center">' . $email . '</td>
                                 <td class="text-center">' . $no_of_properties . '</td>
                                 
                               </tr>';
+                              $number++;
                                     }
                                 }
 

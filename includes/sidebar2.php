@@ -4,13 +4,18 @@
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
         <span class="ms-1 font-weight-bold text-white text-uppercase h5">Property Finder</span>
       </a> -->
-    <div class="w-25 text-primary me-2 d-flex align-items-center justify-content-end">
+    <?php
+    $username = $_SESSION['username'];
+    $role = $_SESSION['role'];
+    $iconColorClass = ($role === 'admin' || $role === 'super') ? 'text-primary' : 'text-success';
+    ?>
+
+    <div class="w-25 <?php echo $iconColorClass; ?> me-2 d-flex align-items-center justify-content-end">
       <i class="material-icons opacity-10 fs-1">account_circle</i>
     </div>
     <div class="d-flex align-items-center justify-content-start w-50">
+
       <?php
-      $username = $_SESSION['username'];
-      $role = $_SESSION['role'];
       echo '<a class="m-0 text-start text-white" href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
       <span class=" font-weight-bold text-white text-capitalize h4">' . $username . ' </span>
   </a>';
