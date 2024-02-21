@@ -13,6 +13,13 @@
           </div>
           <div class="col-md-2 pt-3">
             <div>
+              <a class="btn btn-primary" href="../forms/pay_rent">
+                Pay Rent
+              </a>
+            </div>
+          </div>
+          <div class="col-md-2 pt-3">
+            <div>
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tenantModal">
                 New Tenant
               </button>
@@ -292,6 +299,94 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- pay rent -->
+<div class="modal" id="rentModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 150%">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Rent Payment</h5>
+        <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row g-3 my-1">
+          <div class="col-md-12">
+            <label for="tenantName" class="form-label">Name:</label>
+            <select name="rentName" id="rentNameSelect" class="form-select ps-2 fs-6">
+              <option value="none">Please select a tenant first.</option>
+              <?php
+              include '../config/dbcon.php';
+
+              $sql = "SELECT name FROM tenants_two WHERE tenant_status = 'assigned'";
+              $result = mysqli_query($con, $sql);
+              if ($result) {
+                while ($row = $result->fetch_assoc()) {
+                  echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
+                }
+              }
+              ?>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="tenantName" class="form-label">Month:</label>
+            <select name="rentName" id="rentNameSelect" class="form-select ps-2">
+              <?php
+              function generateMonthSelect()
+              {
+                $currentMonth = date('n'); // Get the current month (1 to 12)
+
+
+                for ($month = 1; $month <= 12; $month++) {
+                  $monthName = date('F', mktime(0, 0, 0, $month, 1));
+                  $selected = ($month == $currentMonth) ? 'selected' : '';
+                  echo "<option value='$month' $selected>$monthName</option>";
+                }
+                echo '</select>';
+              }
+
+              generateMonthSelect();
+              ?>
+          </div>
+
+          <div class="col-md-4">
+            <label for="tenantName" class="form-label">Year:</label>
+            <select name="rentName" id="rentNameSelect" class="form-select ps-2">
+              <?php
+              function generateYearSelect()
+              {
+                $currentYear = date('Y'); // Get the current year
+
+
+                for ($year = $currentYear - 10; $year <= $currentYear + 10; $year++) {
+                  $selected = ($year == $currentYear) ? 'selected' : '';
+                  echo "<option value='$year' $selected>$year</option>";
+                }
+                echo '</select>';
+              }
+
+              // Example usage
+              generateYearSelect();
+              ?>
+          </div>
+
+
+
+          <div class="col-12">
+            <button type="button" name="tenant" class="btn btn-primary" onclick="addTenant()">Pay Rent</button>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>

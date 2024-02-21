@@ -16,6 +16,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^index/([a-z]+)/([0-9a-zA-Z_-]) index.php?role=$2 [QSA,L]
 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^tenant_rent/([a-z]+)/([0-9a-zA-Z_-]) tenant_rent.php?id=$2 [QSA,L]
+
 # Handle other URLs with parameters
 # RewriteCond %{REQUEST_FILENAME} !-d
 # RewriteCond %{REQUEST_FILENAME} !-f

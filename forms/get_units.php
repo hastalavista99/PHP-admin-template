@@ -10,18 +10,16 @@ $unitsQuery = "SELECT id, unit_number, available FROM units_two WHERE property_i
 $unitsResult = $con->query($unitsQuery);
 
 // Build HTML options for the unit select
-if($unitsResult){
+if ($unitsResult) {
     $options = '<option value="" selected disabled>Select Unit</option>';
     while ($unit = $unitsResult->fetch_assoc()) {
-    $options .= '<option value="' . $unit['id'] . '">' . $unit['unit_number'] . '</option>';
-}
+        $options .= '<option value="' . $unit['id'] . '">' . $unit['unit_number'] . '</option>';
+    }
 
-echo $options;
+    echo $options;
 } else {
     // Display an error message if the query fails
     echo "Error: " . $con->error;
 }
-
-
 
 ?>

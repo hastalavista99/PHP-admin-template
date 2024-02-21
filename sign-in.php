@@ -113,7 +113,7 @@ if (isset($_POST['sign_in'])) {
                 <form role="form" id="signupForm" class="text-start" method="post">
                   <div class="my-3">
                     <!-- <label class="form-label">Email</label> -->
-                    <input type="text" name="name" class="form-control ps-2" value="<?php if(!empty($name)) { echo $name; } elseif (isset($_COOKIE["remember_name"])) { echo $_COOKIE["remember_name"]; } ?>" placeholder="Username" required>
+                    <input type="text" name="name" class="form-control ps-2" value="<?php if(!empty($name)) { echo $name; } elseif (isset($_COOKIE["remember_name"])) { echo $_COOKIE["remember_name"]; } ?>" placeholder="Username" autofocus required>
                   </div>
                   <div class="mb-3">
                     <!-- <label class="form-label">Password</label> -->
@@ -126,17 +126,16 @@ if (isset($_POST['sign_in'])) {
                   <div class="text-center">
                     <button type="submit" name="sign_in" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                   </div>
-                  <!-- <p class="mt-4 text-sm text-center">
-                    Don't have an account?
-                    <a href="sign-up.php" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                  </p> -->
+                  <p class="mt-3 text-sm text-center">
+                    <a href="tenant-sign-in" class="text-primary text-gradient font-weight-bold fs-6">Tenant?</a>
+                  </p>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer position-absolute bottom-2 py-2 w-100">
+      <!-- <footer class="footer position-absolute bottom-2 py-2 w-100">
         <div class="container">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-12">
@@ -157,7 +156,7 @@ if (isset($_POST['sign_in'])) {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
   </main>
 
