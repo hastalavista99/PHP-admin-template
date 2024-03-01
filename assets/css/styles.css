@@ -1,5 +1,3 @@
-
-
 .dataTables_filter {
     margin-right: 20px;
 }
@@ -14,7 +12,7 @@
     font-size: 0.9rem;
     margin-top: 10px;
     padding: 15px !important;
-    
+
 }
 
 
@@ -22,8 +20,18 @@
 .dt-buttons {
     margin-left: 15px;
 }
-.btn-secondary.buttons-html5, .buttons-colvis {
+
+.btn-secondary.buttons-html5,
+.buttons-colvis {
     background-color: #4caf50 !important;
     border-right: 1px solid rgb(250, 250, 250);
     box-shadow: none;
+}
+
+#tenantName {
+    display: inline-block;
+    white-space: nowrap;
+    /* Prevents text wrapping */
+    overflow: hidden;
+    /* Hides overflowed content */
 }

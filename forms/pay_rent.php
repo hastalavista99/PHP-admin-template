@@ -11,10 +11,10 @@
     ?>
 
 
-    <form class="row g-3 my-1" action="assigncon.php?assign_id=<?php echo $assign_id; ?>" method="post">
+    <form class="row g-3 my-1" id="rentForm">
         <div class="col-md-2">
-            <label for="property" class="form-label">Property Name</label>
-            <select id="property" name="property_Select" class="form-select ps-2">
+            <label for="rentProperty" class="form-label">Property Name</label>
+            <select id="rentProperty" name="propertySelect" class="form-select ps-2">
                 <option value="" selected>-- Select Property --</option>
                 <?php
                 $conn = new mysqli('localhost', 'jack', '.kJgIRNMbIEKKi](', 'property');
@@ -39,32 +39,28 @@
             </select>
         </div>
         <div class="col-md-2">
-            <label for="unit" class="form-label">Unit Number</label>
-            <select id="unit" name="unitSelect" class="form-select ps-2">
+            <label for="rentUnit" class="form-label">Unit Number</label>
+            <select id="rentUnit" name="unitSelect" class="form-select ps-2">
                 <option value="" selected>-- Select Unit --</option>
 
             </select>
 
 
-
         </div>
 
-
-        <!-- <div class="col-md-3">
-            <label for="type_of" class="form-label">Rent or Lease</label>
-            <select name="contract" id="type_of" class="form-select ps-2" onchange="toggleLeaseOptions()">
-                <option value="" selected>-- Choose... --</option>
-                <option value="rent">Rent</option>
-                <option value="lease">Lease</option>
-                <option value="hire">Hire</option>
-            </select>
-        </div> -->
         <div class="col-md-2">
-            <label for="rentAmount" class="form-label">Rent Amount</label>
+            <label for="tenantName" class="form-label">Tenant</label>
+            <select id="tenantName" name="unitSelect" class="form-select ps-2">
+                <option value=""></option>
+
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="rentAmount" class="form-label">Rent (Kshs)</label>
             <input type="number" name="rent" id="rentAmount" class="form-control">
         </div>
         <div class="col-md-2">
-            <label for="utilitiesAmount" class="form-label">Utilities Amount</label>
+            <label for="utilitiesAmount" class="form-label">Utilities (Kshs)</label>
             <input type="number" name="utilities" id="utilitiesAmount" class="form-control">
         </div>
 
@@ -109,127 +105,218 @@
                 generateYearSelect();
                 ?>
         </div>
-        <div class="col-md-3">
-            <label for="lease" class="form-label" id="leaseLabel" style="display: none;">Duration</label>
-            <select name="leaseSelect" id="lease" class="form-select ps-2" style="display: none;">
-                <option value="three">3-month</option>
-                <option value="six">6-month</option>
-                <option value="twelve">12-month</option>
-            </select>
+        <div class="d-flex justify-content-between align-items-lg-stretch">
+            <div class="col-3">
+                <a href="../tables/tenants_view.php" class="btn btn-success">Back to tenants</a>
+            </div>
+            <div class="col-2">
+                <button onclick="saveData()" type="button" name="rent_pay" class="btn btn-primary">submit</button>
+            </div>
         </div>
 
-        <script>
-            function toggleLeaseOptions() {
-                var typeOfSelect = document.getElementById("type_of");
-                var leaseSelect = document.getElementById("lease");
-
-                if (typeOfSelect.value === "lease") {
-                    leaseSelect.style.display = "inline-block";
-                    document.getElementById("leaseLabel").style.display = "inline-block";
-                } else {
-                    leaseSelect.style.display = "none";
-                    document.getElementById("leaseLabel").style.display = "none";
-                }
-            }
-        </script>
-
-        <div class="col-10">
-            <a href="../tables/tenants_view.php" class="btn btn-success">Back to tenants</a>
-        </div>
-        <div class="col-2">
-            <button type="submit" name="assign" id="submitAssign" class="btn btn-primary">submit</button>
-        </div>
     </form>
 
     <div class="table-responsive p-0">
-        <table class="table table-striped">
+        <table class="table table-striped" id="rentTable">
             <thead>
                 <tr>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tenant Name</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">propertyname</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit name</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit number</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">utilities</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent for</th>
+
 
                 </tr>
             </thead>
             <tbody>
-                <?php
 
-                include '../config/connect.php';
-
-                if (isset($_GET['assign_id'])) {
-                    $assign_id = $_GET['assign_id'];
-                }
-
-                $sql = "SELECT
-                tenants_two.name AS tenant_name,
-                properties.name AS property_name,
-              units_two.unit_name AS unit_name,
-              units_two.unit_number AS unit_number,
-              tenants_two.contract AS tenant_contract
-            FROM
-              tenants_two
-            JOIN
-              units_two ON tenants_two.unit_id = units_two.id
-            JOIN
-                properties ON tenants_two.property_id = properties.id
-            WHERE 
-              tenants_two.id = $assign_id";
-
-                $result = $con->query($sql);
-
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-
-
-                    if ($row) {
-
-                        echo '<tr>
-                        <td class="text-center">' . $row["tenant_name"] . '</td>
-                        <td class="text-center">' . $row["property_name"] . '</td>
-                        <td class="text-center">' . $row["unit_name"] . '</td>
-                        <td class="text-center">' . $row["unit_number"] . '</td>
-                        <td class="text-center">' . $row["tenant_contract"] . '</td>
-                      </tr>';
-                    }
-                } else {
-                    echo '<td colspan="8" class="text-center h4">Not Assigned Yet</td>';
-                }
-
-
-
-                ?>
             </tbody>
         </table>
     </div>
     <script>
         $(document).ready(function() {
-            $('#property').change(function() {
+            $('#rentProperty').change(function() {
                 var propertyId = $(this).val();
 
                 // If a property is selected, fetch and populate units
                 if (propertyId !== "") {
                     $.ajax({
-                        url: 'get_units.php', // Replace with the actual path to get_units.php
+                        url: 'rentcon.php', // Replace with the actual path to get_units.php
                         type: 'POST',
                         data: {
-                            propertyId: propertyId
+                            propertyRentId: propertyId
                         },
                         success: function(data) {
                             // console.log(data); 
-                            $('#unit').html(data);
-                            $('#unit').prop('disabled', false);
+                            $('#rentUnit').html(data);
+                            $('#rentUnit').prop('disabled', false);
                         }
                     });
                 } else {
                     // If no property is selected, disable unit select
-                    $('#unit').html('<option value="" selected disabled>Select Property First</option>');
-                    $('#unit').prop('disabled', true);
+                    $('#rentUnit').html('<option value="" selected disabled>Select Property First</option>');
+                    $('#rentUnit').prop('disabled', true);
                 }
             });
+
+
+            $('#rentUnit').change(function() {
+                var unitId = $(this).val();
+
+                // If a property is selected, fetch and populate units
+                if (unitId !== "") {
+                    $.ajax({
+                        url: 'tenantcon.php', // Replace with the actual path to get_units.php
+                        type: 'POST',
+                        data: {
+                            unitRentId: unitId
+                        },
+                        success: function(data) {
+
+                            $('#tenantName').html(data);
+                            $('#tenantName').prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
         });
+    </script>
+    <script>
+        const saveData = () => {
+
+            const tenantName = document.getElementById('tenantName').value;
+            const rentAmount = document.getElementById('rentAmount').value;
+            const utilitiesAmount = document.getElementById('utilitiesAmount').value;
+            const rentMonthSelect = document.getElementById('rentMonthSelect').value;
+            const rentYearSelect = document.getElementById('rentYearSelect').value;
+
+            const rentData = {
+                tenant: tenantName,
+                rent: rentAmount,
+                utilities: utilitiesAmount,
+                month: rentMonthSelect,
+                year: rentYearSelect
+            };
+
+            let storedData = JSON.parse(localStorage.getItem('rentData')) || [];
+            storedData.push(rentData);
+
+            localStorage.setItem('rentData', JSON.stringify(storedData));
+            displayData();
+
+            // Clear form fields after saving
+            document.getElementById('rentProperty').value = '';
+            document.getElementById('rentUnit').value = '';
+            document.getElementById('tenantName').value = '';
+            document.getElementById('rentAmount').value = '';
+            document.getElementById('utilitiesAmount').value = '';
+        };;
+
+        const displayData = () => {
+            const storedData = localStorage.getItem('rentData');
+
+            // Check if storedData is not null and is a string
+            if (storedData && typeof storedData === 'string') {
+                // Parse the JSON string to an object
+                const rentData = JSON.parse(storedData);
+
+                // Check if rentData is an array
+                if (Array.isArray(rentData)) {
+                    const table = document.getElementById('rentTable');
+
+                    // Clear existing rows in the table
+                    while (table.rows.length > 1) {
+                        table.deleteRow(1);
+                    }
+
+                    rentData.forEach((data) => {
+                        const newRow = table.insertRow(-1);
+                        newRow.classList.add('text-center');
+
+                        const cell1 = newRow.insertCell(0);
+                        const cell2 = newRow.insertCell(1);
+                        const cell3 = newRow.insertCell(2);
+                        const cell4 = newRow.insertCell(3);
+
+                        const rent = parseInt(`${data.rent}`);
+                        const formatted_rent = rent.toLocaleString();
+                        const utilities = parseInt(`${data.utilities}`);
+                        const formatted_utilities = utilities.toLocaleString();
+
+                        cell1.innerHTML = data.tenant;
+                        cell2.innerHTML = `<span class="text-uppercase text-xxs">kshs</span> ${formatted_rent}`;
+                        cell3.innerHTML = `<span class="text-uppercase text-xxs">kshs</span> ${formatted_utilities}`;
+                        cell4.innerHTML = `${data.month}/${data.year}`;
+                    });
+                } else {
+                    console.error('Stored data is not an array.');
+                }
+            } else {
+                console.error('No data stored or stored data is not a string.');
+            }
+        };
+
+        displayData();
+        const clearTable = () => {
+            const table = document.getElementById('rentTable');
+            // Clear existing rows in the table
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+        };
+    </script>
+
+    <div class="d-flex align-items-end justify-content-end">
+        <button type="button" onclick="postDataToMySQL()" class="btn btn-info">post</button>
+    </div>
+
+    <script>
+        const postDataToMySQL = async () => {
+            const storedData = localStorage.getItem('rentData');
+
+            if (storedData && typeof storedData === 'string') {
+                const rentData = JSON.parse(storedData);
+                console.log(rentData);
+
+                // Check if rentData is an array
+                if (Array.isArray(rentData)) {
+                    const url = 'concon.php'; // Adjust the URL to the location of your PHP script
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                dataArray: rentData
+                            }), // Wrap the array in an object
+                        });
+
+                        const jsonResponse = await response.json();
+
+                        if (response.ok) {
+                            console.log('Data posted to MySQL successfully:', jsonResponse);
+                            // Optionally, you can clear local storage or handle other actions after posting
+                            clearTable();
+                            localStorage.removeItem('rentData');
+                        } else {
+                            console.error('Failed to post data to MySQL:', jsonResponse);
+                        }
+                    } catch (error) {
+                        console.error('Failed to post data to MySQL:', error);
+                    }
+                } else {
+                    console.error('Stored data is not an array.');
+                }
+            } else {
+                console.error('No data stored or stored data is not a string.');
+            }
+        };
+
+        // Call the function to initiate the data posting
+        postDataToMySQL();
     </script>
 </div>
 
