@@ -43,8 +43,11 @@ if (!isset($_SESSION['username'])) {
 <body class="g-sidenav-show  bg-gray-200">
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-    <div class="container-fluid py-4">
+    <div class="container py-4">
       <div class="col-12">
+        <div class="d-flex align-content-end justify-content-end me-4">
+          <a href="../tenant-sign-in"><i class="material-icons opacity-10 text-danger fs-2">exit_to_app</i></a>
+        </div>
         <div class="card my-4 text-center">
 
           <h1 class="">Welcome, <?php
@@ -64,65 +67,76 @@ if (!isset($_SESSION['username'])) {
             $sql2 = "SELECT * FROM rent_receivable  WHERE tenant_id = $tid";
             $result2 = mysqli_query($con, $sql2);
             $row = mysqli_fetch_assoc($result2);
-
           }
 
 
           ?>
-       
-      <div class="row">
-        <div>
-          <table class="table table-hover align-items-center mb-0" id="propertyView">
-            <thead>
-              <tr>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">utilities</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">month</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">year</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid on</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              <tr>
-              <?php
+          <div class="row">
+            <div>
+              <table class="table table-hover align-items-center mb-0" id="tenantReportView">
+                <thead>
+                  <tr>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">utilities</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Period</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid on</th>
+                  </tr>
+                </thead>
 
-$sql = "SELECT id FROM tenants_two WHERE id_number = $id";
-$result = mysqli_query($con, $sql);
-if ($result) {
-  $row = mysqli_fetch_assoc($result);
-  $tid = $row['id'];
-  $sql2 = "SELECT * FROM rent_receivable  WHERE tenant_id = $tid";
-  $result2 = mysqli_query($con, $sql2);
-  $number = 1;
-  while($row = mysqli_fetch_assoc($result2)){
-    
-    echo '
+                <tbody>
+                  <tr>
+                    <?php
+
+                    $sql = "SELECT id FROM tenants_two WHERE id_number = $id";
+                    $result = mysqli_query($con, $sql);
+                    if ($result) {
+                      $row = mysqli_fetch_assoc($result);
+                      $tid = $row['id'];
+                      $sql2 = "SELECT * FROM rent_receivable  WHERE tenant_id = $tid";
+                      $result2 = mysqli_query($con, $sql2);
+                      $sql3 = "SELECT amount FROM utilities WHERE tenant_id = $tid";
+                      $result3 = mysqli_query($con, $sql3);
+                      $number = 1;
+                      while ($row = mysqli_fetch_assoc($result2)) {
+                        $row2 = mysqli_fetch_assoc($result3);
+                        echo '
 <td class="text-center">' . $number . '</td>
 <td class="text-center">' . $row['rent_amount'] . '</td>
-<td class="text-center">' . $row['utilities'] . '</td>
-<td class="text-center">' . $row['month'] . '</td>
-<td class="text-center">' . $row['year'] . '</td>
+<td class="text-center">' . $row2['amount'] . '</td>
+<td class="text-center">' . $row['month'] . '/' . $row['year'] . '</td>
 <td class="text-center">' . $row['time'] . '</td>
   
 ';
-$number++;
-  }
-  
-  
-}
+                        $number++;
+                      }
+                    }
 
 
-?>
-              </tr>
-            </tbody>
-          </table>
-        </div> </div>
-      </div>
+                    ?>
+                  </tr>
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var table = $('#tenantReportView').DataTable({
+      lengthChange: false,
+      "pageLength": 50,
+      buttons: ['copy', 'excel', 'pdf', 'colvis']
+    });
+
+    table.buttons().container()
+      .appendTo('#tenantReportView_wrapper .col-md-6:eq(0)');
+  </script>
   <?php include('../includes/footer.php'); ?>
 </body>

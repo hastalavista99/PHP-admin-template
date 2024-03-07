@@ -77,7 +77,16 @@ $(document).ready(function () {
     table.buttons().container()
         .appendTo('#paymentReport_wrapper .col-md-6:eq(0)');
 
-       
+
+    var table = $('#tenantRentView').DataTable({
+        lengthChange: false,
+        buttons: ['copy', 'excel', 'pdf', 'colvis']
+    });
+
+    table.buttons().container()
+        .appendTo('#tenantRentView_wrapper .col-md-6:eq(0)');
+
+
 });
 
 

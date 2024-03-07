@@ -12,7 +12,7 @@ $tenantsResult = $con->query($tenantsQuery);
 if ($tenantsResult) {
     $options = '';
     while ($tenant = $tenantsResult->fetch_assoc()) {
-        $options .= '<option value="' . $tenant['name'] . '" selected disabled>' . $tenant['name'] . '</option>';
+        $options .= '<option value="' . $tenant['id'] . '" selected disabled>' . $tenant['name'] . '</option>';
     }
 
 

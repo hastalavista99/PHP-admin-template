@@ -27,12 +27,25 @@ foreach ($dataArray as $item) {
     $year = $con->real_escape_string($item['year']);
 
     // Perform the database insertion query
-    $sql = "INSERT INTO rent_receivable (tenant_name, month, year, rent_amount, utilities) VALUES ('$tenant', '$month', '$year', '$rent', '$utilities')";
+    $sql = "INSERT INTO rent_receivable (tenant_id, month, year, rent_amount) VALUES ('$tenant', '$month', '$year', '$rent')";
+    
 
     if ($con->query($sql) !== TRUE) {
         // Handle database insertion error
         http_response_code(500); // Internal Server Error
         echo json_encode(array('status' => 'error', 'message' => 'Failed to insert data into the database: ' . $con->error));
+        $con->close();
+        exit();
+    }
+
+    // If rent insertion is successful, proceed to execute the utilities query
+    $utilityQuery = "INSERT INTO utilities (tenant_id, amount, month, year) VALUES ('$tenant', '$utilities', '$month', '$year')";
+
+    // Execute the utilities insertion query
+    if ($con->query($utilityQuery) !== TRUE) {
+        // Handle database insertion error for utilities
+        http_response_code(500); // Internal Server Error
+        echo json_encode(array('status' => 'error', 'message' => 'Failed to insert utilities data into the database: ' . $con->error));
         $con->close();
         exit();
     }

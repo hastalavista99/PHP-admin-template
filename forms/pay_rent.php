@@ -267,7 +267,7 @@
         };
     </script>
 
-    <div class="d-flex align-items-end justify-content-end">
+    <div class="d-flex align-items-end justify-content-end px-6">
         <button type="button" onclick="postDataToMySQL()" class="btn btn-info">post</button>
     </div>
 
