@@ -4,18 +4,15 @@
 include '../config/connect.php';
 $unitId = $_POST['unitRentId'];
 
-// Fetch units based on the selected property
-$tenantsQuery = "SELECT id, name, id_number FROM tenants_two WHERE unit_id = $unitId";
-$tenantsResult = $con->query($tenantsQuery);
-
+// fetch expected rent based on the selected unit
 $rentQuery = "SELECT rent FROM billing_two WHERE unit_id = $unitId";
 $rentResult = $con->query($rentQuery);
 
 // Build HTML options for the unit select
-if ($tenantsResult) {
+if ($rentResult) {
     $options = '';
-    while ($tenant = $tenantsResult->fetch_assoc()) {
-        $options .= '<option value="' . $tenant['id'] . '" selected disabled>' . $tenant['name'] . '</option>';
+    while ($rent = $rentResult->fetch_assoc()) {
+        $options .= '<option value="' . $rent['rent'] . '" selected disabled>' . $rent['rent'] . '</option>';
     }
 
 

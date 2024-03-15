@@ -138,7 +138,7 @@
       </li>
       <?php if ($role === 'admin' || $role === 'super') { ?>
         <li class="nav-item mt-2">
-          <a class="nav-link" href="../tables/accounts">
+          <a class="nav-link" href="../tables/accounting">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">account_balance</i>
             </div>

@@ -80,13 +80,15 @@ if (!isset($_SESSION['username'])) {
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">utilities</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
+
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Period</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid on</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr>
+                  
                     <?php
 
                     $sql = "SELECT id FROM tenants_two WHERE id_number = $id";
@@ -101,13 +103,17 @@ if (!isset($_SESSION['username'])) {
                       $number = 1;
                       while ($row = mysqli_fetch_assoc($result2)) {
                         $row2 = mysqli_fetch_assoc($result3);
-                        echo '
+                        $rent = number_format($row['rent_amount'], 0, '.', ',');
+                        $utilities = number_format($row2['amount'], 0, '.', ',');
+                        $total = number_format($row['rent_amount'] + $row2['amount'], 0, '.',',');
+                        echo '<tr>
 <td class="text-center">' . $number . '</td>
-<td class="text-center">' . $row['rent_amount'] . '</td>
-<td class="text-center">' . $row2['amount'] . '</td>
+<td class="text-center"><span class="text-xxs">KES</span> ' . $rent . '</td>
+<td class="text-center"><span class="text-xxs">KES</span> ' . $utilities . '</td>
+<td class="text-center text-bold"><span class="text-xxs">KES</span> '.$total.'</td>
 <td class="text-center">' . $row['month'] . '/' . $row['year'] . '</td>
 <td class="text-center">' . $row['time'] . '</td>
-  
+  </tr>
 ';
                         $number++;
                       }
@@ -115,7 +121,7 @@ if (!isset($_SESSION['username'])) {
 
 
                     ?>
-                  </tr>
+                  
                 </tbody>
               </table>
               

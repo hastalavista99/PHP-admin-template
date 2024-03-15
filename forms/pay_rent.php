@@ -45,12 +45,16 @@
 
             </select>
 
-
-        </div>
-
-        <div class="col-md-2">
+       
             <label for="tenantName" class="form-label">Tenant</label>
             <select id="tenantName" name="unitSelect" class="form-select ps-2">
+                <option value=""></option>
+
+            </select>
+        
+       
+            <label for="expectedRent" class="form-label">Expected Rent</label>
+            <select id="expectedRent" name="unitSelect" class="form-select ps-2">
                 <option value=""></option>
 
             </select>
@@ -105,6 +109,7 @@
                 generateYearSelect();
                 ?>
         </div>
+        
         <div class="d-flex justify-content-between align-items-lg-stretch">
             <div class="col-3">
                 <a href="../tables/tenants_view.php" class="btn btn-success">Back to tenants</a>
@@ -179,6 +184,27 @@
                     });
                 }
             });
+            
+            $('#rentUnit').change(function() {
+                var unitId = $(this).val();
+
+                // If a property is selected, fetch and populate units
+                if (unitId !== "") {
+                    $.ajax({
+                        url: 'exp_rent.php', // Replace with the actual path to get_units.php
+                        type: 'POST',
+                        data: {
+                            unitRentId: unitId
+                        },
+                        success: function(data) {
+
+                            $('#expectedRent').html(data);
+                            $('#expectedRent').prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
 
         });
     </script>

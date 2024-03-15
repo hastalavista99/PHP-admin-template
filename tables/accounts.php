@@ -207,7 +207,7 @@ if (isset($_POST['sign_up'])) {
                             <input type="text" class="form-control ps-2" id="accountType" autocomplete="off">
                         </div>
                     </div>
-                    
+
                     <div class="col-12 my-3">
                         <button type="button" name="create_account" class="btn btn-primary" onclick="addAccount()">Create</button>
                     </div>
@@ -270,8 +270,8 @@ if (isset($_POST['sign_up'])) {
                 displayAccountData();
             },
             error: function(xhr, status, error) {
-        console.error("AJAX Error: " + status, error);
-    }
+                console.error("AJAX Error: " + status, error);
+            }
         })
     }
 
