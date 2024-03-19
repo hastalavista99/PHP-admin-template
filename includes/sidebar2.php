@@ -33,7 +33,7 @@
       <?php
       if ($role === 'admin' or $role === 'super') { ?>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../../index">
+          <a class="nav-link text-white " href="../../index/role/<?php echo $role ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>

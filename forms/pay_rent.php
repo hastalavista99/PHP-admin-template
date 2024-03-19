@@ -112,10 +112,10 @@
         
         <div class="d-flex justify-content-between align-items-lg-stretch">
             <div class="col-3">
-                <a href="../tables/tenants_view.php" class="btn btn-success">Back to tenants</a>
+                <a href="../tables/tenants_view.php" class="btn btn-success"><i class="material-icons opacity-10">arrow_back_ios</i> Back to tenants</a>
             </div>
             <div class="col-2">
-                <button onclick="saveData()" type="button" name="rent_pay" class="btn btn-primary">submit</button>
+                <button onclick="saveData()" type="button" name="rent_pay" class="btn btn-primary">Next</button>
             </div>
         </div>
 
@@ -294,7 +294,7 @@
     </script>
 
     <div class="d-flex align-items-end justify-content-end px-6">
-        <button type="button" onclick="postDataToMySQL()" class="btn btn-info">post</button>
+        <button type="button" onclick="postDataToMySQL()" class="btn btn-info">submit</button>
     </div>
 
     <script>

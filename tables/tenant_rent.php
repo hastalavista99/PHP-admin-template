@@ -74,16 +74,16 @@ if (!isset($_SESSION['username'])) {
 
           <div class="row">
             <div>
-              <table class="table table-hover align-items-center mb-0" id="tenantReportView">
+              <table class="table table-hover align-items-center mb-0" id="unitsView">
                 <thead>
                   <tr>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">utilities</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rent Amount</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Utilities</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
 
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Period</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid on</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Paid on</th>
                   </tr>
                 </thead>
 

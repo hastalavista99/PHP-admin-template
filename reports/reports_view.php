@@ -38,6 +38,20 @@
                                 payments made
                             </a></li>
                     </ul>
+                    <?php 
+                    
+                    $registry = 'Reg0010742555573';
+                    $substring = substr($registry, -10);
+                    $sub1 = substr($registry, 0, 3);
+                    $sub2 = substr($registry, 3, 3);
+                    echo $substring;
+                    echo '<br>';
+                    echo $sub1;
+                    echo '<br>';
+                    echo $sub2;
+
+
+                    ?>
 
 
                 </div>

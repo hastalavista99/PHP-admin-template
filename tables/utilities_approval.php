@@ -56,10 +56,11 @@
                                         $tenantQuery = "SELECT name FROM tenants_two WHERE id = $tenantId";
                                         $tenantResult = $con->query($tenantQuery);
                                         $row = $tenantResult->fetch_assoc();
+                                        $amount = number_format($row1['amount']);
                                         echo '<tr>';
                                         echo '<td scope="row" class="text-center">' . $number . '</td>';
                                         echo ' <td class="text-center">' . $row["name"] . '</td>';
-                                        echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["amount"] . '</td>';
+                                        echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $amount . '</td>';
                                         echo ' <td class="text-center">' . $row1["month"] . '/' . $row1["year"] . '</td>';
                                         echo '<td class="text-center">' . $row1["time"] . '</td>';
 

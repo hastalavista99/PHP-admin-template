@@ -11,9 +11,17 @@
                   <h4 class="row text-capitalize ps-3">Rent Approval</h4>
                 </div>
               </div>
+              <div class="col-md-3 pt-3">
+                <div>
+                  <a class="btn btn-primary" href="approval">
+                    Approve and close month
+                  </a>
+                </div>
+              </div>
               <div class="col-md-2 pt-3">
                 <div>
                   <a class="btn btn-success" href="approval">
+                    <i class="material-icons opacity-10">arrow_back_ios</i>
                     Back
                   </a>
                 </div>
@@ -56,10 +64,11 @@
                             $tenantQuery = "SELECT name FROM tenants_two WHERE id = $tenantId";
                             $tenantResult = $con->query($tenantQuery);
                             $row = $tenantResult->fetch_assoc();
+                            $rent = number_format($row1['rent_amount']);
                             echo '<tr>';
                             echo '<td scope="row" class="text-center">' . $number . '</td>';
                             echo ' <td class="text-center">' . $row["name"] . '</td>';
-                            echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $row1["rent_amount"] . '</td>';
+                            echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $rent . '</td>';
                             echo ' <td class="text-center">' . $row1["month"] . '/' . $row1["year"] . '</td>';
                             echo '<td class="text-center">' . $row1["time"] . '</td>';
                            

@@ -14,6 +14,7 @@
                     <div class="col-md-2 pt-3">
                         <div>
                             <a class="btn btn-primary" href="reports_view">
+                            <i class="material-icons opacity-10">arrow_back_ios</i> 
                                 back
                             </a>
                         </div>

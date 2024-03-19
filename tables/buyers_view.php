@@ -14,6 +14,7 @@
           <div class="col-md-2 pt-3">
             <div>
               <a class="btn btn-success" href="units_sale_view">
+              <i class="material-icons opacity-10">arrow_back_ios</i> 
                 Back to units
               </a>
             </div>
