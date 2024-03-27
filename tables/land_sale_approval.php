@@ -8,20 +8,24 @@
                 <div class="d-flex justify-content-between">
                     <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
                         <div class="pt-1 pb-1">
-                            <h4 class="row text-capitalize ps-3">Transactions Pending Approval</h4>
+                            <h4 class="row text-capitalize ps-3">Payments Report</h4>
                         </div>
                     </div>
-
+                    <div class="col-md-3 pt-3">
+                        <div>
+                            <button type="button" class="btn btn-primary" id="approveRentBtn">
+                                Approve
+                            </button>
+                        </div>
+                    </div>
                     <div class="col-md-2 pt-3">
                         <div>
-                            <a class="btn btn-success" href="accounting">
+                            <a class="btn btn-success" href="reports_view">
                                 <i class="material-icons opacity-10">arrow_back_ios</i>
-                                Back
+                                back
                             </a>
                         </div>
                     </div>
-
-
 
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -31,24 +35,90 @@
                         </div>
 
                     </div>
+                    <div class="table-responsive p-0">
+                        <table class="table table-hover align-items-center mb-0" id="paymentReport">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receipt No</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Property</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">unit</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">landlord</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">amount</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">paid via</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+                                $sql = "SELECT
+                                    payment.id,
+                                    sell.id AS sell_id,
+                                    sell.name AS buyer_name,
+                                    property_sale.name AS property_name,
+                                    units_sale.name AS unit_name,
+                                    landlords.name AS landlord_name,
+                                    FORMAT(payment.amount, 0) AS amount,
+                                    payment.type_payment,
+                                    payment.date
+                                FROM
+                                    payment
+                                LEFT JOIN
+                                    sell ON sell.id = payment.buyer_id
+                                LEFT JOIN
+                                    units_sale ON units_sale.id = sell.unit_id
+                                LEFT JOIN
+                                    property_sale ON property_sale.id = units_sale.property_sale_id
+                                LEFT JOIN
+                                    landlords ON landlords.id = property_sale.landlord_id";
+
+                                $result = mysqli_query($con, $sql);
 
 
-                    <ul class="list-group list-group-xxl my-2" style="list-style: none;">
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="rent_approval">
-                                Rent
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="utilities_approval">
-                                Utilities
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="land_sale_approval">
-                                Land Sale
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report">
-                                Acquisitions
-                            </a></li>
-                    </ul>
+                                if ($result) {
+
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['sell_id'];
+                                        $sql1 = "SELECT
+                                LPAD(id, 4, '0') AS receipt_number
+                                FROM
+                                    payment
+                                WHERE
+                                    buyer_id = $id";
+                                        $result1 = mysqli_query($con, $sql1);
+                                        $row1 = $result1->fetch_assoc();
+
+                                        $receipt = $row1['receipt_number'];
+                                        $buyer = $row['buyer_name'];
+                                        $property_name = $row['property_name'];
+                                        $unit_name = $row['unit_name'];
+                                        $landlord_name = $row['landlord_name'];
+                                        $amount = $row['amount'];
+                                        $payment_type = $row['type_payment'];
+                                        $date = $row['date'];
 
 
+                                        echo '<tr>
+                                <td scope="row" class="text-center">' . $receipt . '</td>
+                                <td class="text-center text-capitalize">' . $buyer . '</td>
+                                <td class="text-center">' . $property_name . '</td>
+                                <td class="text-center">' . $unit_name . '</td>
+                                <td class="text-center">' . $landlord_name . '</td>
+                                <td class="text-center"><span class="text-xxs">KES</span> ' . $amount . '</td>
+                                <td class="text-center">' . $payment_type . '</td>
+                                <td class="text-center">' . $date . '</td>
+                                
+                              </tr>';
+                                    }
+                                }
+
+                                ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,70 +194,13 @@
                 <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
                     <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
                     <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
                 </a>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="landlordSelect" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Landlords</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row g-3 my-1" action="../reports/landlord_report.php?land_id=' . $row['id'] . '" method="post" autocomplete="off">
-                    <div class="col-md-6">
-                        <select id="landlord" name="landlordSaleSelect" class="form-select ps-2">
-                            <option value="" selected>-- Select Landlord --</option>
-                            <?php
-                            // Fetch landlords from the database and populate the dropdown
-                            include '../config/connect.php';
-
-                            if ($con->connect_error) {
-                                die("Connection failed: " . $con->connect_error);
-                            }
-
-                            $sql = "SELECT id, name FROM landlords";
-                            $result = $con->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                                }
-                            } else {
-                                echo "<option value='' disabled>No landlords found</option>";
-                            }
-
-                            $con->close();
-                            ?>
-                        </select>
-                    </div>
-
-
-                    <div class="col-9">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary btn-sm">submit</button>
-                    </div>
-                </form>
-
-            </div>
-
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">submit</button>
-            </div> 
-        </div>
-    </div>
-</div> -->
 
 
 

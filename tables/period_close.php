@@ -8,18 +8,17 @@
                 <div class="d-flex justify-content-between">
                     <div class="row card-header col-md-7 p-0 mx-3 z-index-2 mt-3" style="height: 25px;">
                         <div class="pt-1 pb-1">
-                            <h4 class="row text-capitalize ps-3">Transactions Pending Approval</h4>
+                            <h4 class="row text-capitalize ps-3">Close Accounting Period</h4>
                         </div>
                     </div>
-
                     <div class="col-md-2 pt-3">
-                        <div>
-                            <a class="btn btn-success" href="accounting">
-                                <i class="material-icons opacity-10">arrow_back_ios</i>
-                                Back
-                            </a>
-                        </div>
-                    </div>
+            <div>
+              <a class="btn btn-success" href="accounting">
+              <i class="material-icons opacity-10">arrow_back_ios</i> 
+                Back
+              </a>
+            </div>
+          </div>
 
 
 
@@ -32,21 +31,11 @@
 
                     </div>
 
-
-                    <ul class="list-group list-group-xxl my-2" style="list-style: none;">
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="rent_approval">
-                                Rent
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="utilities_approval">
-                                Utilities
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="land_sale_approval">
-                                Land Sale
-                            </a></li>
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report">
-                                Acquisitions
-                            </a></li>
-                    </ul>
+                    <div class="col-12 d-flex align-items-center justify-content-center mt-3">
+                        <div class="col-3"><button class="btn btn-danger">Close Month</button></div> 
+                        <div class="col-3"><button class="btn btn-danger">Close Year</button></div> 
+                    </div>
+                    
 
 
                 </div>
@@ -131,64 +120,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="landlordSelect" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Landlords</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row g-3 my-1" action="../reports/landlord_report.php?land_id=' . $row['id'] . '" method="post" autocomplete="off">
-                    <div class="col-md-6">
-                        <select id="landlord" name="landlordSaleSelect" class="form-select ps-2">
-                            <option value="" selected>-- Select Landlord --</option>
-                            <?php
-                            // Fetch landlords from the database and populate the dropdown
-                            include '../config/connect.php';
-
-                            if ($con->connect_error) {
-                                die("Connection failed: " . $con->connect_error);
-                            }
-
-                            $sql = "SELECT id, name FROM landlords";
-                            $result = $con->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                                }
-                            } else {
-                                echo "<option value='' disabled>No landlords found</option>";
-                            }
-
-                            $con->close();
-                            ?>
-                        </select>
-                    </div>
-
-
-                    <div class="col-9">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary btn-sm">submit</button>
-                    </div>
-                </form>
-
-            </div>
-
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">submit</button>
-            </div> 
-        </div>
-    </div>
-</div> -->
-
 
 
 

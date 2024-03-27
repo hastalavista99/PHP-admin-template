@@ -38,21 +38,6 @@
                                 payments made
                             </a></li>
                     </ul>
-                    <?php 
-                    
-                    $registry = 'Reg0010742555573';
-                    $substring = substr($registry, -10);
-                    $sub1 = substr($registry, 0, 3);
-                    $sub2 = substr($registry, 3, 3);
-                    echo $substring;
-                    echo '<br>';
-                    echo $sub1;
-                    echo '<br>';
-                    echo $sub2;
-
-
-                    ?>
-
 
                 </div>
             </div>
@@ -137,62 +122,7 @@
     </div>
 </div>
 
-<!-- Modal -->
-<!-- <div class="modal fade" id="landlordSelect" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Landlords</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row g-3 my-1" action="../reports/landlord_report.php?land_id=' . $row['id'] . '" method="post" autocomplete="off">
-                    <div class="col-md-6">
-                        <select id="landlord" name="landlordSaleSelect" class="form-select ps-2">
-                            <option value="" selected>-- Select Landlord --</option>
-                            <?php
-                            // Fetch landlords from the database and populate the dropdown
-                            include '../config/connect.php';
 
-                            if ($con->connect_error) {
-                                die("Connection failed: " . $con->connect_error);
-                            }
-
-                            $sql = "SELECT id, name FROM landlords";
-                            $result = $con->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                                }
-                            } else {
-                                echo "<option value='' disabled>No landlords found</option>";
-                            }
-
-                            $con->close();
-                            ?>
-                        </select>
-                    </div>
-
-
-                    <div class="col-9">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary btn-sm">submit</button>
-                    </div>
-                </form>
-
-            </div>
-
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">submit</button>
-            </div> 
-        </div>
-    </div>
-</div> -->
 
 
 

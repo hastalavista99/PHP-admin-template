@@ -11,9 +11,17 @@
                             <h4 class="row text-capitalize ps-3">Utilities Approval</h4>
                         </div>
                     </div>
+                    <div class="col-md-3 pt-3">
+                        <div>
+                            <button type="button" class="btn btn-primary" id="approveUtilitiesBtn">
+                                Approve
+                            </button>
+                        </div>
+                    </div>
                     <div class="col-md-2 pt-3">
                         <div>
                             <a class="btn btn-success" href="approval">
+                                <i class="material-icons opacity-10">arrow_back_ios</i>
                                 Back
                             </a>
                         </div>
@@ -30,13 +38,13 @@
                         <table class="table table-hover align-items-center mb-0 don" id="unitsView">
                             <thead>
                                 <tr>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tenant name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><input type="checkbox" name="" id="utilitiesSelect"></th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">trans id</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">no.</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">rent amount (kes)</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">month</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">time</th>
-
-
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operations</th>
 
                                 </tr>
@@ -44,7 +52,7 @@
                             <tbody>
                                 <?php
 
-                                $sql = "SELECT * FROM monthly_utilities";
+                                $sql = "SELECT * FROM pending_transactions WHERE transaction_type = 'utilities'";
 
                                 $result = $con->query($sql);
 
@@ -58,9 +66,11 @@
                                         $row = $tenantResult->fetch_assoc();
                                         $amount = number_format($row1['amount']);
                                         echo '<tr>';
-                                        echo '<td scope="row" class="text-center">' . $number . '</td>';
+                                        echo '<td scope="row" class="text-center"><input type="checkbox" class="utilitiesEach" name="" id="utilitiesEach"></td>';
+                                        echo ' <td class="text-center">00' . $row1["id"] . '</td>';
+                                        echo ' <td class="text-center">' . $tenantId . '</td>';
                                         echo ' <td class="text-center">' . $row["name"] . '</td>';
-                                        echo '<td class="text-center"><span class="text-xxs">KES</span> ' . $amount . '</td>';
+                                        echo '<td class="text-center">' . $amount . '</td>';
                                         echo ' <td class="text-center">' . $row1["month"] . '/' . $row1["year"] . '</td>';
                                         echo '<td class="text-center">' . $row1["time"] . '</td>';
 
@@ -70,7 +80,7 @@
                                         $number++;
                                     }
                                 } else {
-                                    echo "<tr><td colspan='6'>No transactions found</td></tr>";
+                                    echo "<tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>";
                                 }
 
                                 ?>
@@ -85,6 +95,64 @@
     </div>
 
 </div>
+<script>
+  const allSelect = document.getElementById('utilitiesSelect');
+  let selectBoxes = document.querySelectorAll('#utilitiesEach');
+
+  allSelect.addEventListener('change', () => {
+    // Iterate over each checkbox
+    selectBoxes.forEach(checkbox => {
+      // Set or unset the checked attribute based on the state of allSelect
+      checkbox.checked = allSelect.checked;
+    });
+  });
+
+ 
+</script>
+<script>
+    $(document).ready(function() {
+        // Listen for click event on the "Process Selected" button
+        $('#approveUtilitiesBtn').on('click', function() {
+            // Array to store data for selected rows
+            var selectedRowsData = [];
+
+            // Loop through each checked checkbox
+            $('.utilitiesEach:checked').each(function() {
+                var rowData = {};
+                // Get the parent row of the checkbox
+                var $row = $(this).closest('tr');
+                // Loop through each cell in the current row
+                $row.find('td').each(function(index) {
+                    // Get the text content of the cell
+                    var columnName = $('#unitsView thead th').eq(index).text().trim();
+                    var cellValue = $(this).text().trim();
+                    // Add cell value to rowData object
+                    rowData[columnName] = cellValue;
+                });
+                // Push rowData object to selectedRowsData array
+                selectedRowsData.push(rowData);
+            });
+            console.log(selectedRowsData);
+
+            // Send AJAX request to server
+            $.ajax({
+                url: 'approvalcon.php', // Update with your PHP script URL
+                method: 'POST',
+                data: {
+                    selectedUtilitiesData: selectedRowsData
+                },
+                success: function(response) {
+                    // Handle response from server
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 <?php include('../includes/footer.php') ?>
 </main>
 <div class="fixed-plugin">

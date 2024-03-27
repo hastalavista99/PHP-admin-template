@@ -1,3 +1,4 @@
+
 <footer class="footer pt-5">
   <div class="container-fluid">
     <div class="row align-items-center justify-content-lg-between">
@@ -19,6 +20,23 @@
       </div>
     </div>
   </div>
+  <script>
+  const allSelect = document.getElementById('rentSelect');
+  let selectBoxes = document.querySelectorAll('#rentEach');
+
+  allSelect.addEventListener('change', () => {
+    // Iterate over each checkbox
+    selectBoxes.forEach(checkbox => {
+      // Set or unset the checked attribute based on the state of allSelect
+      checkbox.checked = allSelect.checked;
+    });
+  });
+
+  const approveBtn = document.getElementById('approveRentBtn');
+  approveBtn.addEventListener('click', ()=>{
+
+  });
+</script>
 </footer>
 </main>
 

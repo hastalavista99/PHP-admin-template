@@ -27,7 +27,7 @@ foreach ($dataArray as $item) {
     $year = $con->real_escape_string($item['year']);
 
     // Perform the database insertion query
-    $sql = "INSERT INTO monthly_rent (tenant_id, month, year, rent_amount) VALUES ('$tenant', '$month', '$year', '$rent')";
+    $sql = "INSERT INTO pending_transactions (tenant_id, amount, month, year, transaction_type) VALUES ('$tenant', '$rent', '$month', '$year', 'rent')";
     
 
     if ($con->query($sql) !== TRUE) {
@@ -39,7 +39,7 @@ foreach ($dataArray as $item) {
     }
 
     // If rent insertion is successful, proceed to execute the utilities query
-    $utilityQuery = "INSERT INTO monthly_utilities (tenant_id, amount, month, year) VALUES ('$tenant', '$utilities', '$month', '$year')";
+    $utilityQuery = "INSERT INTO pending_transactions (tenant_id, amount, month, year, transaction_type) VALUES ('$tenant', '$utilities', '$month', '$year', 'utilities')";
 
     // Execute the utilities insertion query
     if ($con->query($utilityQuery) !== TRUE) {

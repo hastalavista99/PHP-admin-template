@@ -11,21 +11,21 @@
                             <h4 class="row text-capitalize ps-3">Reports</h4>
                         </div>
                     </div>
-                    
+
 
 
                 </div>
                 <div class="card-body px-0 pb-2">
                     <div class="row d-flex justify-content-between align-items-center ms-2 me-2">
                         <div class="col-sm-12 col-md-6 mt-1">
-                            
+
                         </div>
-                        
+
                     </div>
-                    
-                    
+
+
                     <ul class="list-group list-group-xxl my-2" style="list-style: none;">
-                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="approval" >
+                        <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="approval">
                                 Pending Approval
                             </a></li>
                         <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="accounts">
@@ -36,6 +36,9 @@
                             </a></li>
                         <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="payment_report">
                                 Accounting Reports
+                            </a></li>
+                            <li><a class="list-group-item list-group-item-action text-center text-capitalize fs-4" href="period_close">
+                                Close Month/Year
                             </a></li>
                     </ul>
 
