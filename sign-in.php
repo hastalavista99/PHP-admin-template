@@ -20,40 +20,39 @@ include 'config/connect.php';
 $login = 0;
 $invalid = 0;
 if (isset($_POST['sign_in'])) {
-    $name = $_POST['name'];
-    $password = $_POST['password'];
-    if (isset($_POST['remember'])) { // check if checkbox is checked
-      $remember = $_POST['remember'];
-    }
-    
+  $name = $_POST['name'];
+  $password = $_POST['password'];
+  if (isset($_POST['remember'])) { // check if checkbox is checked
+    $remember = $_POST['remember'];
+  }
 
-    $sql = "SELECT * FROM users WHERE user_name = '$name' AND user_password = '$password'";
 
-    $result = $con->query($sql);
-    if ($result) {
-        $num = mysqli_num_rows($result);
-        if ($num > 0) {
-            $login = 1;
-            $row = mysqli_fetch_assoc($result);
-            $role = $row['role'];
-            session_start();
-            $_SESSION['username'] = $name;
-            $_SESSION['role'] = $role;
-            if (isset($_POST['remember'])) {
-              $remember = $_POST['remember'];
-              setcookie("remember_name", $name, time() + 3600*24*365); //cookie for the name
-              setcookie("remember", $remember, time() + 3600*24*365); //cookie for the remember me switch
-            } else {
-              setcookie("remember_name", "", time() - 36000);
-              setcookie("remember", "", time() - 36000);
-            }
-            
-            header('location: index/role/'.$row['role'].'');
-             
-        } else {
-            $invalid = 1;
-        }
+  $sql = "SELECT * FROM users WHERE user_name = '$name' AND user_password = '$password'";
+
+  $result = $con->query($sql);
+  if ($result) {
+    $num = mysqli_num_rows($result);
+    if ($num > 0) {
+      $login = 1;
+      $row = mysqli_fetch_assoc($result);
+      $role = $row['role'];
+      session_start();
+      $_SESSION['username'] = $name;
+      $_SESSION['role'] = $role;
+      if (isset($_POST['remember'])) {
+        $remember = $_POST['remember'];
+        setcookie("remember_name", $name, time() + 3600 * 24 * 365); //cookie for the name
+        setcookie("remember", $remember, time() + 3600 * 24 * 365); //cookie for the remember me switch
+      } else {
+        setcookie("remember_name", "", time() - 36000);
+        setcookie("remember", "", time() - 36000);
+      }
+
+      header('location: index/role/' . $row['role'] . '');
+    } else {
+      $invalid = 1;
     }
+  }
 }
 ?>
 
@@ -86,7 +85,7 @@ if (isset($_POST['sign_in'])) {
 </head>
 
 <body class="bg-gray-200">
- 
+
   <main class="main-content  mt-0">
     <div class="page-header align-items-start min-vh-100" style="background-image: url('assets/img/illustrations/sign-in.jpg');">
       <span class="mask bg-gradient-dark opacity-6"></span>
@@ -97,13 +96,13 @@ if (isset($_POST['sign_in'])) {
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                   <h4 class="text-white font-weight-bolder text-center">Sign in</h4>
-                  
+
                 </div>
               </div>
-              
+
               <div class="card-body">
-                <?php 
-                if ($invalid){
+                <?php
+                if ($invalid) {
                   echo '<div class="alert alert-danger alert-dismissible fade show my-2 mx-auto" role="alert">
                   <strong>Error</strong> invalid credentials.
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -113,14 +112,18 @@ if (isset($_POST['sign_in'])) {
                 <form role="form" id="signupForm" class="text-start" method="post">
                   <div class="my-3">
                     <!-- <label class="form-label">Email</label> -->
-                    <input type="text" name="name" class="form-control ps-2" value="<?php if(!empty($name)) { echo $name; } elseif (isset($_COOKIE["remember_name"])) { echo $_COOKIE["remember_name"]; } ?>" placeholder="Username" autofocus required>
+                    <input type="text" name="name" class="form-control ps-2" value="<?php if (!empty($name)) {
+                                                                                      echo $name;
+                                                                                    } elseif (isset($_COOKIE["remember_name"])) {
+                                                                                      echo $_COOKIE["remember_name"];
+                                                                                    } ?>" placeholder="Username" autofocus required>
                   </div>
                   <div class="mb-3">
                     <!-- <label class="form-label">Password</label> -->
                     <input type="password" name="password" class="form-control ps-2" placeholder="Password" required>
                   </div>
                   <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember"<?php if(!empty($remember)){ ?>checked <?php } elseif(isset($_COOKIE["remember"])) { ?>  <?php } ?>>
+                    <input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if (!empty($remember)) { ?>checked <?php } elseif (isset($_COOKIE["remember"])) { ?> <?php } ?>>
                     <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
                   </div>
                   <div class="text-center">

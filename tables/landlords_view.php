@@ -120,8 +120,10 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title">New Landlord</h5>
-        <button type="button" class="btn-close me-2" style="background-color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">New Landlord</h5>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
 
       <!-- Modal Body -->

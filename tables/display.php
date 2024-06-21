@@ -216,7 +216,7 @@ if (isset($_POST['displayProperty'])) {
 }
 
 
-
+// DISPLAY USER
 if (isset($_POST['displayUser'])) {
   $table = '<table class="table table-hover align-items-center mb-0" id="userView">
   <thead>
